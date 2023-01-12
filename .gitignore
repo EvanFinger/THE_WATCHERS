@@ -1,5 +1,9 @@
 #Ignore
 THE_WATCHERS/x64/
+*.vs/
+External/
+THE_WATCHERS.sln
+x64/
 
 # Prerequisites
 *.d

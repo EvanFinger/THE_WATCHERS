@@ -35,11 +35,11 @@ void CharacterSelectState::initTitle()
 {
 	this->title.setFont(this->font);
 	this->title.setCharacterSize(this->window->getSize().x / 20.f);
-	this->title.setString("CHARACTER SELECT");
+	this->title.setString("Choose Your Way");
 
 	this->title.setPosition(
-		this->window->getSize().x / 2.f - this->title.getGlobalBounds().width / 2.f,
-		this->window->getSize().y / 6.f - this->title.getGlobalBounds().height / 2.f
+		this->window->getSize().x / 19.2f,
+		this->window->getSize().y / 21.6f
 	);
 }
 
@@ -50,17 +50,10 @@ void CharacterSelectState::initPlayerDescription()
 
 	this->playerTexture.loadFromImage(playerImage);
 	this->playerSprite.setTexture(playerTexture);
-	this->playerSprite.setScale(4, 4);
-	this->playerSprite.setPosition(450, 700);
-
-	this->playerName.setFont(this->font);
-	this->playerName.setCharacterSize(40);
-	this->playerName.setFillColor(sf::Color::White);
-	this->playerName.setString("N");
-
-	this->playerName.setPosition(
-		700, 700
-	);
+	this->playerSprite.setScale(15, 15);
+	this->playerSprite.setPosition(
+		this->title.getPosition().x + this->title.getGlobalBounds().width + this->title.getGlobalBounds().height,
+		this->title.getPosition().y);
 
 	this->playerSummary.setFont(this->font);
 	this->playerSummary.setCharacterSize(20);
@@ -68,32 +61,41 @@ void CharacterSelectState::initPlayerDescription()
 	this->playerSummary.setString("D");
 
 	this->playerSummary.setPosition(
-		720,750
+		this->window->getSize().x / 12.8,
+		this->title.getGlobalBounds().height * 7.f
 	);
 }
 
 void CharacterSelectState::initButtons()
 {
 	float start_button_width = this->window->getSize().x / 6.4f, start_button_height = this->window->getSize().y / 12.8f;
-	float character_button_sides = this->window->getSize().x / 7.68f;
 
-	this->buttons["UPGRADES_STATE_BUTTON"] = new Button(0, this->window->getSize().x / 1.239f, this->window->getSize().y / 1.174f, start_button_width, start_button_height,
+	float character_button_pos_x = this->window->getSize().x / 12.8;
+	float character_button_length = this->title.getGlobalBounds().width / 1.143f;
+	float character_button_height = this->window->getSize().y / 10.8;
+
+	this->buttons["UPGRADES_STATE_BUTTON"] = new Button(0, character_button_pos_x + (character_button_length - start_button_width), this->window->getSize().y / 1.174f, 
+		start_button_width, start_button_height,
 		&this->font, start_button_width / 12.5f, "START",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	this->buttons["CHARACTER_BUTTON_A"] = new Button(1, 350, 400, character_button_sides, character_button_sides,
-		&this->font, character_button_sides / 12.5, "SWORD MASTER",
+	this->buttons["CHARACTER_BUTTON_A"] = new Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 2.5f,
+		character_button_length, character_button_height,
+		&this->font, character_button_height / 5, "SWORD",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	this->buttons["CHARACTER_BUTTON_B"] = new Button(1, 835, 400, character_button_sides, character_button_sides,
-		&this->font, character_button_sides / 12.5, "MARKSMAN",
+	this->buttons["CHARACTER_BUTTON_B"] = new Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 4.f,
+		character_button_length, character_button_height,
+		&this->font, character_button_height / 5, "MARKSMAN",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	this->buttons["CHARACTER_BUTTON_C"] = new Button(1, 1320, 400, character_button_sides, character_button_sides,
-		&this->font, character_button_sides / 12.5, "TRICKSTER",
+	this->buttons["CHARACTER_BUTTON_C"] = new Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 5.5f,
+		character_button_length, character_button_height,
+		&this->font, character_button_height / 5, "TRICKSTER",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	this->buttons["EXIT_STATE"] = new Button(0, this->window->getSize().x / 27.429f, this->window->getSize().y / 1.174f, start_button_width, start_button_height,
+	this->buttons["EXIT_STATE"] = new Button(0, character_button_pos_x, this->window->getSize().y / 1.174f, 
+		start_button_width, start_button_height,
 		&this->font, start_button_width / 12.5f, "BACK",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
@@ -142,19 +144,19 @@ void CharacterSelectState::updateButtons()
 	{
 		this->buttons.at("CHARACTER_BUTTON_B")->toggleOff();
 		this->buttons.at("CHARACTER_BUTTON_C")->toggleOff();
-		this->playerName.setString("The Sword Master");
+		this->title.setString("The Sword Master");
 	}
 	else if (this->buttons.at("CHARACTER_BUTTON_B")->isPressed())
 	{
 		this->buttons.at("CHARACTER_BUTTON_A")->toggleOff();
 		this->buttons.at("CHARACTER_BUTTON_C")->toggleOff();
-		this->playerName.setString("The Marksman");
+		this->title.setString("The Marksman");
 	}
 	else if (this->buttons.at("CHARACTER_BUTTON_C")->isPressed())
 	{
 		this->buttons.at("CHARACTER_BUTTON_A")->toggleOff();
 		this->buttons.at("CHARACTER_BUTTON_B")->toggleOff();
-		this->playerName.setString("The Trickster");
+		this->title.setString("The Trickster");
 	}
 
 	//To Upgrades State
@@ -220,7 +222,6 @@ void CharacterSelectState::render(sf::RenderTarget* target)
 	target->draw(this->background);
 	target->draw(this->title);
 	target->draw(this->playerSprite);
-	target->draw(this->playerName);
 	target->draw(this->playerSummary);
 	this->renderButtons(target);
 	

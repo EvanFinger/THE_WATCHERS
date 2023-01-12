@@ -24,7 +24,7 @@
     <ProjectGuid>{f4497f5e-cb7f-4b97-8057-24ccefe0d60f}</ProjectGuid>
     <RootNamespace>THEWATCHERS</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>src</ProjectName>
+    <ProjectName>THE_WATCHERS</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -148,6 +148,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MarksmanUpgradeState.cpp" />
+    <ClCompile Include="MovementComp.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="SwordUpgradeState.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MarksmanUpgradeState.h" />
+    <ClInclude Include="MovementComp.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="SwordUpgradeState.h" />

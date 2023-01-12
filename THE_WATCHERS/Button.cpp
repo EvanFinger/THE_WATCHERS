@@ -7,6 +7,8 @@ Button::Button(bool toggleable, float x, float y, float width, float height,
 	this->buttonState = BTN_IDLE;
 	this->mouseDown = false;
 	this->toggleable = toggleable;
+	this->isVoid = false;
+	this->toggled = false;
 
 	this->shape.setPosition(sf::Vector2f(x, y));
 	this->shape.setSize(sf::Vector2f(width, height));
@@ -59,6 +61,17 @@ void Button::toggleOff()
 	this->toggled = false;
 }
 
+void Button::activate()
+{
+	this->isVoid = true;
+}
+
+void Button::deactivate()
+{
+	this->isVoid = true;
+}
+
+
 //Funtions
 
 void Button::update(const sf::Vector2f mousePos)
@@ -69,7 +82,7 @@ void Button::update(const sf::Vector2f mousePos)
 	this->buttonState = BTN_IDLE;
 
 	//Hover
-	if (this->shape.getGlobalBounds().contains(mousePos))
+	if (this->shape.getGlobalBounds().contains(mousePos) && !isVoid)
 	{
 		this->buttonState = BTN_HOVER;
 
@@ -119,10 +132,15 @@ void Button::update(const sf::Vector2f mousePos)
 		this->shape.setFillColor(sf::Color::Red);
 		break;
 	}
+
+
 }
 
 void Button::render(sf::RenderTarget* target)
 {
-	target->draw(this->shape);
-	target->draw(this->text);
+	if (!isVoid)
+	{
+		target->draw(this->shape);
+		target->draw(this->text);
+	}
 }

@@ -17,7 +17,6 @@ private:
     sf::Image playerImage;
     sf::Texture playerTexture;
     sf::Sprite playerSprite;
-    sf::Text playerName;
     sf::Text playerSummary;
 
     std::map<std::string, Button*> buttons;

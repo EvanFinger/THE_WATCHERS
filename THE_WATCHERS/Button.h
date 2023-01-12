@@ -24,6 +24,9 @@ private:
 	bool mouseDown;
 	bool toggleable;
 	bool toggled;
+	bool isVoid;
+	
+	
 
 
 	sf::Color idleColor;
@@ -41,6 +44,9 @@ public:
 	const bool isToggled() const;
 	void toggleOn();
 	void toggleOff();
+	void activate();
+	void deactivate();
+
 
 	//Functions
 	void update(const sf::Vector2f mousePos);
