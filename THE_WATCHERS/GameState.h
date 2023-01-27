@@ -2,6 +2,7 @@
 #define GAMESTATE_H
 
 #include "State.h"
+#include "HealthBar.h"
 
 class GameState :
     public State
@@ -9,9 +10,12 @@ class GameState :
 private:
     Player* player;
 
+    HealthBar* healthbar;
+
     //Functions
     void initKeybinds();
     void initTextures();
+    void initHealthbar();
     void initPlayer();
 
 public:
@@ -22,7 +26,9 @@ public:
 
 
     void updateInput(const float& dt);
+    void updateHealthbar();
     void update(const float& dt);
+
     void render(sf::RenderTarget* target = nullptr);
 };
 

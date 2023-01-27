@@ -4,6 +4,7 @@ THE_WATCHERS/x64/
 External/
 THE_WATCHERS.sln
 x64/
+THE_WATCHERS/Debug/
 
 # Prerequisites
 *.d

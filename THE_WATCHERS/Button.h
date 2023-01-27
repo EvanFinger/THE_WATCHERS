@@ -28,7 +28,9 @@ private:
 	
 	
 
-
+	sf::Color textIdleColor;
+	sf::Color textHoverColor;
+	sf::Color textActiveColor;
 	sf::Color idleColor;
 	sf::Color hoverColor;
 	sf::Color activeColor;
@@ -36,6 +38,7 @@ private:
 public:
 	Button(bool toggleable, float x, float y, float width, float height,
 		sf::Font* font, unsigned int fonstSize, std::string text, 
+		sf::Color textIdleColor, sf::Color textHoverColor, sf::Color textActiveColor,
 		sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor);
 	~Button();
 

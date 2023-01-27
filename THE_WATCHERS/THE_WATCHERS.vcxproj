@@ -140,30 +140,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnimationComponent.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
+    <ClCompile Include="DamageComponent.cpp" />
+    <ClCompile Include="DurabilityComponent.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Field.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
+    <ClCompile Include="HealthComponent.cpp" />
+    <ClCompile Include="heart.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MarksmanUpgradeState.cpp" />
     <ClCompile Include="MovementComp.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ShieldComponent.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="SwordUpgradeState.cpp" />
     <ClCompile Include="TricksterUpgradeState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="CharacterSelectState.h" />
+    <ClInclude Include="DamageComponent.h" />
+    <ClInclude Include="DurabilityComponent.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Field.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="HealthBar.h" />
+    <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="heart.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MarksmanUpgradeState.h" />
     <ClInclude Include="MovementComp.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="ShieldComponent.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="SwordUpgradeState.h" />
     <ClInclude Include="TricksterUpgradeState.h" />

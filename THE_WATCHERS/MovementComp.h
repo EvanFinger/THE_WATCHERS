@@ -16,25 +16,30 @@
 #include "SFML\Audio.hpp"
 #include "SFML\Network.hpp"
 
-class MovementComp
+class MovementComponent
 {
 private:
+	sf::Sprite& sprite;
+
 	float maxVelocity;
+	float acceleration;
+	float deceleration;
+
 	sf::Vector2f velocity;
-	sf::Vector2f acceleration;
-	sf::Vector2f deceleration;
+
 
 	//Inits
 
 public:
-	MovementComp(float maxVelocity);
-	virtual ~MovementComp();
+	MovementComponent(sf::Sprite& sprite, 
+		float maxVelocity, float acceleration, float deceleration);
+	virtual ~MovementComponent();
 
 	//access
 	const sf::Vector2f& getVelocity() const;
 
 	//Funcs
-	void move(const float dir_x, const float dir_y);
+	void move(const float dir_x, const float dir_y, const float& dt);
 	void update(const float& dt);
 };
 

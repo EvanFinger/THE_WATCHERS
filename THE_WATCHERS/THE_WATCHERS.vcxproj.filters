@@ -22,6 +22,12 @@
     <Filter Include="Components">
       <UniqueIdentifier>{a3a4e000-dbdd-458d-b338-ac276d903371}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fields">
+      <UniqueIdentifier>{3b1655ba-2e9b-44e0-bfb3-39680e495a50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Durability">
+      <UniqueIdentifier>{2684f4f3-7ae6-4f5b-82c3-d64c7241a4e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,30 @@
     <ClCompile Include="MovementComp.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="AnimationComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Field.cpp">
+      <Filter>Fields</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageComponent.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DurabilityComponent.cpp">
+      <Filter>Components\Durability</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Components\Durability</Filter>
+    </ClCompile>
+    <ClCompile Include="ShieldComponent.cpp">
+      <Filter>Components\Durability</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="heart.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -100,6 +130,30 @@
     </ClInclude>
     <ClInclude Include="MovementComp.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Field.h">
+      <Filter>Fields</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageComponent.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DurabilityComponent.h">
+      <Filter>Components\Durability</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Components\Durability</Filter>
+    </ClInclude>
+    <ClInclude Include="ShieldComponent.h">
+      <Filter>Components\Durability</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="heart.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
