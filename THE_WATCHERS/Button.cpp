@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(bool toggleable, float x, float y, float width, float height,
+gui::Button::Button(bool toggleable, float x, float y, float width, float height,
 	sf::Font* font, unsigned int fontSize, std::string text,
 	sf::Color textIdleColor, sf::Color textHoverColor, sf::Color textActiveColor,
 	sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
@@ -40,7 +40,7 @@ Button::Button(bool toggleable, float x, float y, float width, float height,
 
 }
 
-Button::~Button()
+gui::Button::~Button()
 {
 
 }
@@ -48,32 +48,32 @@ Button::~Button()
 
 
 //Access
-const bool Button::isPressed() const
+const bool gui::Button::isPressed() const
 {
 	return buttonState == BTN_CLICKED;
 }
 
-const bool Button::isToggled() const
+const bool gui::Button::isToggled() const
 {
 	return toggled;
 }
 
-void Button::toggleOn()
+void gui::Button::toggleOn()
 {
 	this->toggled = true;
 }
 
-void Button::toggleOff()
+void gui::Button::toggleOff()
 {
 	this->toggled = false;
 }
 
-void Button::activate()
+void gui::Button::activate()
 {
 	this->isVoid = true;
 }
 
-void Button::deactivate()
+void gui::Button::deactivate()
 {
 	this->isVoid = true;
 }
@@ -81,7 +81,7 @@ void Button::deactivate()
 
 //Funtions
 
-void Button::update(const sf::Vector2f& mousePos)
+void gui::Button::update(const sf::Vector2f& mousePos)
 {
 	/*Update the bools for hover/pressed*/
 
@@ -147,7 +147,7 @@ void Button::update(const sf::Vector2f& mousePos)
 
 }
 
-void Button::render(sf::RenderTarget& target)
+void gui::Button::render(sf::RenderTarget& target)
 {
 	if (!isVoid)
 	{

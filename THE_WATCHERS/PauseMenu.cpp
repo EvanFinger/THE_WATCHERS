@@ -46,7 +46,7 @@ PauseMenu::~PauseMenu()
 	}
 }
 
-std::map<std::string, Button*>& PauseMenu::getButtons()
+std::map<std::string, gui::Button*>& PauseMenu::getButtons()
 {
 	return this->buttons;
 }
@@ -63,7 +63,7 @@ void PauseMenu::addButton()
 	float button_height = this->container.getGlobalBounds().width * 0.2f;
 	float button_X_offset = this->container.getPosition().x + this->container.getSize().x / 2.f - button_width / 2.f;
 
-	this->buttons["RESUME"] = new Button(
+	this->buttons["RESUME"] = new gui::Button(
 		0, 
 		button_X_offset, 
 		this->menuText.getPosition().y + this->menuText.getGlobalBounds().height + button_height * 0 + 20.f * 1, 
@@ -74,7 +74,7 @@ void PauseMenu::addButton()
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
-	this->buttons["QUIT"] = new Button(
+	this->buttons["QUIT"] = new gui::Button(
 		0,
 		button_X_offset,
 		this->menuText.getPosition().y + this->menuText.getGlobalBounds().height + button_height * 1 + 20.f * 2,

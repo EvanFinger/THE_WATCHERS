@@ -74,31 +74,31 @@ void CharacterSelectState::initButtons()
 	float character_button_length = this->title.getGlobalBounds().width / 1.143f;
 	float character_button_height = this->window->getSize().y / 10.8;
 
-	this->buttons["UPGRADES_STATE_BUTTON"] = new Button(0, character_button_pos_x + (character_button_length - start_button_width), this->window->getSize().y / 1.174f, 
+	this->buttons["UPGRADES_STATE_BUTTON"] = new gui::Button(0, character_button_pos_x + (character_button_length - start_button_width), this->window->getSize().y / 1.174f,
 		start_button_width, start_button_height,
 		&this->font, start_button_width / 6.25f, "START",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["CHARACTER_BUTTON_A"] = new Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 2.5f,
+	this->buttons["CHARACTER_BUTTON_A"] = new gui::Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 2.5f,
 		character_button_length, character_button_height,
 		&this->font, character_button_length / 6.25f, "SWORD",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["CHARACTER_BUTTON_B"] = new Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 4.f,
+	this->buttons["CHARACTER_BUTTON_B"] = new gui::Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 4.f,
 		character_button_length, character_button_height,
 		&this->font, character_button_length / 6.25f, "MARKSMAN",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["CHARACTER_BUTTON_C"] = new Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 5.5f,
+	this->buttons["CHARACTER_BUTTON_C"] = new gui::Button(1, character_button_pos_x, this->title.getGlobalBounds().height * 5.5f,
 		character_button_length, character_button_height,
 		&this->font, character_button_length / 6.25f, "TRICKSTER",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["EXIT_STATE"] = new Button(0, character_button_pos_x, this->window->getSize().y / 1.174f, 
+	this->buttons["EXIT_STATE"] = new gui::Button(0, character_button_pos_x, this->window->getSize().y / 1.174f,
 		start_button_width, start_button_height,
 		&this->font, start_button_width / 6.25f, "BACK",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),

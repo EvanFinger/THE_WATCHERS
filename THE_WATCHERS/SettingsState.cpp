@@ -51,7 +51,7 @@ void SettingsState::initButtons()
 	float button_xPos = this->window->getSize().x / 2.f - button_width / 2.f;
 	float button_yOffset = this->title.getPosition().y + this->title.getGlobalBounds().height * 2.5f;
 
-	this->buttons["EXIT_STATE"] = new Button(0, button_xPos, button_yOffset + button_height * 3.75f, button_width, button_height,
+	this->buttons["EXIT_STATE"] = new gui::Button(0, button_xPos, button_yOffset + button_height * 3.75f, button_width, button_height,
 		&this->font, button_width / 6.25f, "QUIT",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
