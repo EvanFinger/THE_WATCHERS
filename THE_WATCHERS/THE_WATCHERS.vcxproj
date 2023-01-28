@@ -156,6 +156,7 @@
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MarksmanUpgradeState.cpp" />
     <ClCompile Include="MovementComp.cpp" />
+    <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="ShieldComponent.cpp" />
     <ClCompile Include="State.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MarksmanUpgradeState.h" />
     <ClInclude Include="MovementComp.h" />
+    <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="ShieldComponent.h" />
     <ClInclude Include="State.h" />

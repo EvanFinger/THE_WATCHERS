@@ -2,6 +2,9 @@
 
 void HealthBar::initComponents()
 {
+	this->durabilityComponent = nullptr;
+	this->movementComponent = nullptr;
+	this->damageComponent = nullptr;
 }
 
 HealthBar::HealthBar(unsigned int max_health, float x, float y, sf::Texture& texture_sheet)
@@ -12,14 +15,15 @@ HealthBar::HealthBar(unsigned int max_health, float x, float y, sf::Texture& tex
 	this->heartTextureSheet = texture_sheet;
 
 	this->maxHealth = max_health;
-	this->health = this->maxHealth;
-
+	this->health = max_health;
+	
 	this->setPosition(x, y);
 
 	this->heartInitializationSpacer = 0;
 
 	for (int i = 0; i < this->maxHealth; i++)
 	{
+		
 		this->hearts[i] = new heart(this->heartInitializationSpacer, 0, this->heartTextureSheet);
 		this->heartInitializationSpacer += 16;
 	}
@@ -48,8 +52,8 @@ void HealthBar::update(const float& dt)
 	{
 		for (int i = 0; i < this->maxHealth - this->hearts.size(); i++)
 		{
-			this->hearts.erase(this->hearts.size() - 1);
-			this->heartInitializationSpacer = +16;
+			this->hearts.erase(this->hearts.size()-1);
+			this->heartInitializationSpacer = -16;
 		}
 	}
 

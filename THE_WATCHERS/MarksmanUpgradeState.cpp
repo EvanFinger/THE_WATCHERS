@@ -125,7 +125,7 @@ void MarksmanUpgradeState::renderButtons(sf::RenderTarget* target)
 {
 	for (auto& iterator : this->buttons)
 	{
-		iterator.second->render(target);
+		iterator.second->render(*target);
 	}
 }
 

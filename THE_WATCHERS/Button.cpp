@@ -81,7 +81,7 @@ void Button::deactivate()
 
 //Funtions
 
-void Button::update(const sf::Vector2f mousePos)
+void Button::update(const sf::Vector2f& mousePos)
 {
 	/*Update the bools for hover/pressed*/
 
@@ -147,11 +147,11 @@ void Button::update(const sf::Vector2f mousePos)
 
 }
 
-void Button::render(sf::RenderTarget* target)
+void Button::render(sf::RenderTarget& target)
 {
 	if (!isVoid)
 	{
-		target->draw(this->shape);
-		target->draw(this->text);
+		target.draw(this->shape);
+		target.draw(this->text);
 	}
 }

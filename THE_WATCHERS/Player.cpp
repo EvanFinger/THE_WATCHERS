@@ -22,7 +22,7 @@ Player::Player(float x, float y, int max_health, sf::Texture& texture_sheet)
 
 	this->animationComponent->addAnimation("IDLE_LEFT", 10.f, 0, 0,7, 0, 16, 16);
 
-	this->createDurabilityComponent(5, 0, 0);
+	this->createDurabilityComponent(max_health, 0, 0);
 
 }
 

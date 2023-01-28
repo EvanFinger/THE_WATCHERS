@@ -28,6 +28,9 @@
     <Filter Include="Components\Durability">
       <UniqueIdentifier>{2684f4f3-7ae6-4f5b-82c3-d64c7241a4e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{f2ff6397-37b3-44c0-9a41-f7beab7d2719}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,6 +96,9 @@
     <ClCompile Include="heart.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="PauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -154,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="heart.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseMenu.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
