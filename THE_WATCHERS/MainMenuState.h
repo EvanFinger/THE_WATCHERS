@@ -2,6 +2,7 @@
 #define MAINMENUSTATE_H
 
 #include "CharacterSelectState.h"
+#include "SettingsState.h"
 #include "Button.h"
 
 class MainMenuState :

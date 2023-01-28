@@ -12,6 +12,7 @@
 
 enum buton_states{BTN_IDLE = 0, BTN_HOVER, BTN_ACTIVE, BTN_CLICKED};
 
+
 class Button
 {
 private:

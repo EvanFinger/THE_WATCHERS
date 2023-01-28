@@ -116,6 +116,11 @@ void MainMenuState::updateButtons()
 		this->states->push(new CharacterSelectState(this->window, this->supportedKeys, this->states));
 	}
 
+	if (this->buttons["SETTINGS_STATE_BUTTON"]->isPressed())
+	{
+		this->states->push(new SettingsState(this->window, this->supportedKeys, this->states));
+	}
+
 	//Quit Game
 	if (this->buttons["EXIT_STATE"]->isPressed())
 	{

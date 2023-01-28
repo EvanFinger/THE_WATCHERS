@@ -158,6 +158,7 @@
     <ClCompile Include="MovementComp.cpp" />
     <ClCompile Include="PauseMenu.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="ShieldComponent.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="SwordUpgradeState.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="MovementComp.h" />
     <ClInclude Include="PauseMenu.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SettingsState.h" />
     <ClInclude Include="ShieldComponent.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="SwordUpgradeState.h" />
