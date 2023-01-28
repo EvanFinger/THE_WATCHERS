@@ -3,6 +3,7 @@
 
 
 #include "Player.h"
+#include "Gui.h"
 
 
 class State

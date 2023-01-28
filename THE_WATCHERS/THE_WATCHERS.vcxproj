@@ -141,7 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationComponent.cpp" />
-    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Gui.cpp" />
     <ClCompile Include="CharacterSelectState.cpp" />
     <ClCompile Include="DamageComponent.cpp" />
     <ClCompile Include="DurabilityComponent.cpp" />
@@ -166,7 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
-    <ClInclude Include="Button.h" />
+    <ClInclude Include="Gui.h" />
     <ClInclude Include="CharacterSelectState.h" />
     <ClInclude Include="DamageComponent.h" />
     <ClInclude Include="DurabilityComponent.h" />

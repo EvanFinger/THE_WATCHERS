@@ -1,5 +1,5 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef GUI_H
+#define GUI_H
 
 #include <iostream>
 #include <cstdlib>
@@ -59,5 +59,17 @@ namespace gui
 		void render(sf::RenderTarget& target);
 	};
 
+	class DropdownMenu
+	{
+	private:
+
+
+	public:
+
+
+		//Functions
+		void update(const sf::Vector2f& mousePos);
+		void render(sf::RenderTarget& target);
+	};
 }
 #endif

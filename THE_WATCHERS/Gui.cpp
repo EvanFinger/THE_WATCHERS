@@ -1,4 +1,4 @@
-#include "Button.h"
+#include "Gui.h"
 
 gui::Button::Button(bool toggleable, float x, float y, float width, float height,
 	sf::Font* font, unsigned int fontSize, std::string text,

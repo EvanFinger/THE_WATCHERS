@@ -1,7 +1,6 @@
 #ifndef SETTINGS_STATE_H
 #define SETTINGS_STATE_H
 #include "State.h"
-#include"Button.h"
 
 class SettingsState :
     public State
