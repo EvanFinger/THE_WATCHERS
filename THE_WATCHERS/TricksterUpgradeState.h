@@ -3,7 +3,7 @@
 
 
 #include "GameState.h"
-#include "Button.h"
+
 
 class TricksterUpgradeState :
     public State
@@ -14,7 +14,7 @@ private:
     sf::Font font;
     sf::Text title;
 
-    std::map<std::string, Button*> buttons;
+    std::map<std::string, gui::Button*> buttons;
 
     //Functions
     void initFonts();

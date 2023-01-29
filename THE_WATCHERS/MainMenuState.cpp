@@ -49,22 +49,22 @@ void MainMenuState::initButtons()
 	float button_xPos = this->window->getSize().x / 2.f - button_width / 2.f;
 	float button_yOffset = this->title.getPosition().y + this->title.getGlobalBounds().height * 2.5f;
 
-	this->buttons["CHARACTER_SELECT_STATE_BUTTON"] = new Button(0,button_xPos, button_yOffset, button_width, button_height,
+	this->buttons["CHARACTER_SELECT_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset, button_width, button_height,
 		&this->font, button_width / 6.25f, "START",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["ACHIEVEMENT_STATE_BUTTON"] = new Button(0,button_xPos, button_yOffset + button_height * 1.25f, button_width, button_height,
+	this->buttons["ACHIEVEMENT_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 1.25f, button_width, button_height,
 		&this->font, button_width / 6.25f, "ACHIEVEMENTS",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["SETTINGS_STATE_BUTTON"] = new Button(0,button_xPos, button_yOffset + button_height * 2.5f, button_width, button_height,
+	this->buttons["SETTINGS_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 2.5f, button_width, button_height,
 		&this->font, button_width / 6.25f, "SETTINGS",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["EXIT_STATE"] = new Button(0,button_xPos, button_yOffset + button_height * 3.75f, button_width, button_height,
+	this->buttons["EXIT_STATE"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 3.75f, button_width, button_height,
 		&this->font, button_width / 6.25f, "QUIT",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));

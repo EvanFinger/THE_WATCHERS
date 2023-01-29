@@ -47,12 +47,16 @@ void TricksterUpgradeState::initButtons()
 {
 	float start_button_width = this->window->getSize().x / 6.4f, start_button_height = this->window->getSize().y / 12.8f;
 
-	this->buttons["GAME_STATE_BUTTON"] = new Button(0, this->window->getSize().x / 1.239f, this->window->getSize().y / 1.174f, start_button_width, start_button_height,
+	this->buttons["GAME_STATE_BUTTON"] = new gui::Button(
+		0, 
+		this->window->getSize().x / 1.239f, this->window->getSize().y / 1.174f, start_button_width, start_button_height,
 		&this->font, start_button_width / 6.25f, "START",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["EXIT_STATE"] = new Button(0, this->window->getSize().x / 27.429f, this->window->getSize().y / 1.174f, start_button_width, start_button_height,
+	this->buttons["EXIT_STATE"] = new gui::Button(
+		0, 
+		this->window->getSize().x / 27.429f, this->window->getSize().y / 1.174f, start_button_width, start_button_height,
 		&this->font, start_button_width / 6.25f, "BACK",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));

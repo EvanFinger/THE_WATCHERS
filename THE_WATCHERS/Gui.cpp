@@ -1,0 +1,298 @@
+#include "Gui.h"
+/*
+--------------------------------------------------
+
+BUTTON CLASS (credit in .h)
+
+--------------------------------------------------
+*/
+
+gui::Button::Button(
+	bool toggleable, 
+	float x, float y, float width, float height,
+	sf::Font* font, unsigned int fontSize, std::string text,
+	sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
+	sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
+	sf::Color outline_idle_color, sf::Color outline_hover_color, sf::Color outline_active_color,
+	short unsigned id)
+{	
+	this->buttonState = BTN_IDLE;
+	this->id = id;
+
+	this->mouseDown = false;
+	this->toggleable = toggleable;
+	this->isVoid = false;
+	this->toggled = false;
+
+	this->shape.setPosition(sf::Vector2f(x, y));
+	this->shape.setSize(sf::Vector2f(width, height));
+	this->shape.setOutlineColor(sf::Color::Transparent);
+	this->shape.setFillColor(idleColor);
+	this->shape.setOutlineThickness(1.f);
+	this->shape.setOutlineColor(outline_idle_color);
+
+	this->font = font;
+	this->text.setFont(*this->font);
+	this->text.setString(text);
+	this->text.setFillColor(textIdleColor);
+	this->text.setCharacterSize(fontSize);
+	this->text.setPosition(
+		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
+		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height 
+	);
+
+	this->textIdleColor = text_idle_color;
+	this->textHoverColor = text_hover_color;
+	this->textActiveColor = text_active_color;
+
+
+	this->idleColor = idle_color;
+	this->hoverColor = hover_color;
+	this->activeColor = active_color;
+
+	this->outlineIdleColor = outline_idle_color;
+	this->outlineHoverColor = outline_hover_color;
+	this->outlineActiveColor = outline_active_color;
+}
+
+gui::Button::~Button()
+{
+
+}
+
+
+
+//Access
+const bool gui::Button::isPressed() const
+{
+	return buttonState == BTN_CLICKED;
+}
+
+const bool gui::Button::isToggled() const
+{
+	return toggled;
+}
+
+const std::string gui::Button::getText() const
+{
+	return this->text.getString();
+}
+
+const short unsigned& gui::Button::getId() const
+{
+	return this->id;
+}
+
+//Modifiers
+
+void gui::Button::setText(const std::string text) 
+{
+	this->text.setString(text);
+}
+
+
+
+
+//Funtions
+void gui::Button::toggleOn()
+{
+	this->toggled = true;
+}
+
+void gui::Button::toggleOff()
+{
+	this->toggled = false;
+}
+
+void gui::Button::activate()
+{
+	this->isVoid = false;
+}
+
+void gui::Button::deactivate()
+{
+	this->isVoid = true;
+}
+
+void gui::Button::setId(const short unsigned id)
+{
+	this->id = id;
+}
+
+void gui::Button::update(const sf::Vector2f& mousePos)
+{
+	/*Update the bools for hover/pressed*/
+
+	//Idle
+	this->buttonState = BTN_IDLE;
+
+	//Hover
+	if (this->shape.getGlobalBounds().contains(mousePos) && !isVoid)
+	{
+		this->buttonState = BTN_HOVER;
+
+		//Pressed
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+				this->buttonState = BTN_ACTIVE;
+				this->mouseDown = true;
+		}
+
+		if (this->mouseDown && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->buttonState = BTN_CLICKED;
+			this->mouseDown = false;
+			
+			if (this->toggleable && !this->toggled)
+			{
+				this->toggled = true;
+			}
+			else if (this->toggleable && this->toggled)
+			{
+				this->toggled = false;
+			}
+		}
+	}
+
+	if(toggled)
+		this->shape.setOutlineColor(sf::Color::White);
+	else
+		this->shape.setOutlineColor(sf::Color::Transparent);
+
+	switch (this->buttonState)
+	{
+	case BTN_IDLE:
+		this->shape.setFillColor(this->idleColor);
+		this->text.setFillColor(this->textIdleColor);
+		this->shape.setOutlineColor(this->outlineIdleColor);
+		this->mouseDown = false;
+		break;
+
+	case BTN_HOVER:
+		this->shape.setFillColor(this->hoverColor);
+		this->text.setFillColor(this->textHoverColor);
+		this->shape.setOutlineColor(this->outlineHoverColor);
+		break;
+
+	case BTN_ACTIVE:
+		this->shape.setFillColor(this->activeColor);
+		this->text.setFillColor(this->textActiveColor);
+		this->shape.setOutlineColor(this->outlineActiveColor);
+		break;
+	default:
+		this->shape.setFillColor(sf::Color::Red);
+		break;
+	}
+
+
+}
+
+void gui::Button::render(sf::RenderTarget& target)
+{
+	if (!isVoid)
+	{
+		target.draw(this->shape);
+		target.draw(this->text);
+	}
+}
+
+/*
+--------------------------------------------------
+
+DROPDOWN MENU CLASS (credit in .h)
+
+--------------------------------------------------
+*/
+
+gui::DropdownList::DropdownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned numberOfElements, unsigned default_index)
+	: font(font), showList(false)
+{
+	//unsigned numberOfElements = sizeof(list) / sizeof(std::string);
+	
+	this->activeElement = new gui::Button(
+		0,
+		x, y, width, height,
+		&this->font, 12, list[default_index],
+		sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200),
+		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 200)
+	);
+
+	for (size_t i = 0; i < numberOfElements; i++)
+	{
+		this->list.push_back(
+				new gui::Button(
+					0, 
+					x, y + (i+1) * height, width, height,
+					&this->font, 12, list[i],
+					sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 255), sf::Color(20, 20, 20, 50),
+					sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200),
+					sf::Color(255, 255, 255, 0), sf::Color(255, 255, 255, 0), sf::Color(20, 20, 20, 0),
+					i
+				)
+			);
+	}
+
+	
+	
+}
+
+gui::DropdownList::~DropdownList()
+{
+	delete this->activeElement;
+	if (this->showList)
+	{
+		for (size_t i = 0; i < this->list.size(); i++)
+		{
+			delete this->list[i];
+		}
+	}
+	
+}
+
+const unsigned short gui::DropdownList::getActiveId() const
+{
+	return this->activeElement->getId();
+}
+
+void gui::DropdownList::update(const sf::Vector2f& mousePos)
+{	
+	this->activeElement->update(mousePos);
+
+	if (this->activeElement->isPressed())
+	{
+		if (this->showList)
+			this->showList = false;
+		else
+			this->showList = true;
+	}
+
+	if (this->showList)
+	{
+		for (auto& iterator : this->list)
+		{
+			iterator->update(mousePos);
+
+			if (iterator->isPressed())
+			{
+				this->showList = false;
+				this->activeElement->setText(iterator->getText());
+				this->activeElement->setId(iterator->getId());
+			}
+		}
+	}
+}
+
+void gui::DropdownList::render(sf::RenderTarget& target)
+{
+	this->activeElement->render(target);
+
+	if (this->showList)
+	{
+		for (auto& iterator : this->list)
+		{
+			iterator->render(target);
+		}
+	}
+	
+}

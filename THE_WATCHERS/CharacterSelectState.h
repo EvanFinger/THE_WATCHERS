@@ -2,7 +2,7 @@
 #define CHARACTER_SELECT_STATE_H
 
 #include "SwordUpgradeState.h"
-#include "Button.h"
+
 
 
 class CharacterSelectState :
@@ -19,7 +19,7 @@ private:
     sf::Sprite playerSprite;
     sf::Text playerSummary;
 
-    std::map<std::string, Button*> buttons;
+    std::map<std::string, gui::Button*> buttons;
 
     //Functions
     void initFonts();
