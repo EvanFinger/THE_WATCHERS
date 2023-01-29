@@ -97,8 +97,8 @@ void SettingsState::initText()
 	);
 }
 
-SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+SettingsState::SettingsState(StateData* state_data)
+	: State(state_data), gfxSettings(*state_data->gfxSettings)
 {
 	this->initVariables();
 	this->initFonts();
@@ -155,7 +155,9 @@ void SettingsState::updateGui()
 	if (this->buttons["APPLY"]->isPressed())
 	{
 		//TEST REMOVE LATER
-		this->window->create(this->modes[this->dropDownLists["RESOLUTION"]->getActiveId()], "test", sf::Style::Default);
+		this->gfxSettings.resolution = this->modes[this->dropDownLists["RESOLUTION"]->getActiveId()];
+
+		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
 	}
 
 	//DROPDOWNS

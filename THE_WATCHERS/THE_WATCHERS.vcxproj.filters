@@ -28,9 +28,6 @@
     <Filter Include="Components\Durability">
       <UniqueIdentifier>{2684f4f3-7ae6-4f5b-82c3-d64c7241a4e3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI">
-      <UniqueIdentifier>{f2ff6397-37b3-44c0-9a41-f7beab7d2719}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -99,11 +96,14 @@
     <ClCompile Include="SettingsState.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="Gui.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsSettings.cpp">
+      <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,11 +170,14 @@
     <ClInclude Include="SettingsState.h">
       <Filter>States</Filter>
     </ClInclude>
-    <ClInclude Include="Gui.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsSettings.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

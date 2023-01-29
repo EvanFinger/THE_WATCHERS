@@ -9,46 +9,35 @@
 void Game::initVariables()
 {
 	this->window = nullptr;
-	this->fullscreen = false;
 	this->dt = 0.f;
+	this->gridSize = 50.f;
+}
+
+void Game::initGfxSettings()
+{
+	this->gfxSettings.loadFromFile("Config/graphics.ini");
 }
 
 void Game::initWindow()
 {
 	/*Creates window using edscriptors form window.ini file.*/
-
-	std::ifstream file("Config/window.ini");
-	this->videoModes = sf::VideoMode::getFullscreenModes();
-
-	std::string title = "None";
-	sf::VideoMode window_bounds = sf::VideoMode::getDesktopMode();
-	bool fullscreen = false;
-	unsigned int framerate_limit = 120;
-	bool vertical_sync = false;
-	unsigned antialiasing_level = 0;
-
-	if (file.is_open())
-	{
-		std::getline(file, title);
-		file >> window_bounds.width >> window_bounds.height;
-		file >> fullscreen;
-		file >> framerate_limit;
-		file >> vertical_sync;
-		file >> antialiasing_level;
-	}
-
-	file.close();
-
-	this->fullscreen = fullscreen;
-	sf::ContextSettings window_settings;
-	this->windowSettings.antialiasingLevel = antialiasing_level;
-
-	if(this->fullscreen)
-		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Fullscreen, windowSettings);
+	if(this->gfxSettings.fullscreen)
+		this->window = new sf::RenderWindow(
+			this->gfxSettings.resolution, 
+			this->gfxSettings.title, 
+			sf::Style::Fullscreen, 
+			this->gfxSettings.contextSettings
+		);
 	else
-		this->window = new sf::RenderWindow(window_bounds, title, sf::Style::Titlebar | sf::Style::Close, windowSettings);
-	this->window->setFramerateLimit(framerate_limit);
-	this->window->setVerticalSyncEnabled(vertical_sync);
+		this->window = new sf::RenderWindow(
+			this->gfxSettings.resolution,
+			this->gfxSettings.title,
+			sf::Style::Titlebar | sf::Style::Close, 
+			this->gfxSettings.contextSettings
+		);
+
+	this->window->setFramerateLimit(this->gfxSettings.frameRateLimit);
+	this->window->setVerticalSyncEnabled(this->gfxSettings.verticalSync);
 }
 
 void Game::initKeys()
@@ -69,9 +58,18 @@ void Game::initKeys()
 	file.close();
 }
 
+void Game::initStatedata()
+{
+	this->stateData.window = this->window;
+	this->stateData.gfxSettings = &this->gfxSettings;
+	this->stateData.supportedKeys = &this->supportedKeys;
+	this->stateData.states = &this->states;
+	this->stateData.gridSize = this->gridSize;
+}
+
 void Game::initStates()
 {
-	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
+	this->states.push(new MainMenuState(&this->stateData));
 }
 
 
@@ -80,8 +78,10 @@ void Game::initStates()
 Game::Game()
 {
 	this->initVariables();
+	this->initGfxSettings();
 	this->initWindow();
 	this->initKeys();
+	this->initStatedata();
 	this->initStates();
 	
 }

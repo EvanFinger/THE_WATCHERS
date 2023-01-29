@@ -8,6 +8,7 @@ class SettingsState :
 
 private:
     //Variables
+    GraphicsSettings& gfxSettings;
     sf::RectangleShape background;
     sf::Font font;
     sf::Text title;
@@ -32,7 +33,7 @@ private:
 
 public:
 
-    SettingsState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states);
+    SettingsState(StateData* state_data);
     virtual ~SettingsState();
 
     //Access

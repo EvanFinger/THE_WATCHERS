@@ -61,8 +61,8 @@ void GameState::initPlayer()
 }
 
 //Constructor/destructor
-GameState::GameState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+GameState::GameState(StateData* state_data)
+	: State(state_data)
 {
 	this->initFonts();
 	this->initKeybinds();

@@ -73,8 +73,8 @@ void MainMenuState::initButtons()
 
 
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+MainMenuState::MainMenuState(StateData* state_data)
+	: State(state_data)
 {
 	this->initFonts();
 	this->initKeybinds();
@@ -114,12 +114,12 @@ void MainMenuState::updateButtons()
 	//New Game
 	if (this->buttons["CHARACTER_SELECT_STATE_BUTTON"]->isPressed())
 	{
-		this->states->push(new CharacterSelectState(this->window, this->supportedKeys, this->states));
+		this->states->push(new CharacterSelectState(this->stateData));
 	}
 
 	if (this->buttons["SETTINGS_STATE_BUTTON"]->isPressed())
 	{
-		this->states->push(new SettingsState(this->window, this->supportedKeys, this->states));
+		this->states->push(new SettingsState(this->stateData));
 	}
 
 	//Quit Game
@@ -131,6 +131,7 @@ void MainMenuState::updateButtons()
 
 void MainMenuState::update(const float& dt)
 {
+
 	this->updateMousePositions();
 	this->updateInput(dt);
 

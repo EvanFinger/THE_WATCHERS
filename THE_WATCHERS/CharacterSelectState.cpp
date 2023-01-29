@@ -106,8 +106,8 @@ void CharacterSelectState::initButtons()
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 }
 
-CharacterSelectState::CharacterSelectState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+CharacterSelectState::CharacterSelectState(StateData* state_data)
+	: State(state_data)
 {
 	this->initFonts();
 	this->initKeybinds();
@@ -169,11 +169,11 @@ void CharacterSelectState::updateButtons()
 	if (this->buttons.at("UPGRADES_STATE_BUTTON")->isPressed())
 	{
 		if(this->buttons.at("CHARACTER_BUTTON_A")->isToggled())
-			this->states->push(new SwordUpgradeState(this->window, this->supportedKeys, this->states));
+			this->states->push(new SwordUpgradeState(this->stateData));
 		else if (this->buttons.at("CHARACTER_BUTTON_B")->isToggled())
-			this->states->push(new MarksmanUpgradeState(this->window, this->supportedKeys, this->states));
+			this->states->push(new MarksmanUpgradeState(this->stateData));
 		else if (this->buttons.at("CHARACTER_BUTTON_C")->isToggled())
-			this->states->push(new TricksterUpgradeState(this->window, this->supportedKeys, this->states));
+			this->states->push(new TricksterUpgradeState(this->stateData));
 	}
 
 	//Back to Main Menu State

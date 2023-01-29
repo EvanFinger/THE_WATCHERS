@@ -16,6 +16,7 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <istream>
 #include <cmath>
 
 	//SFML

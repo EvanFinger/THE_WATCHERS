@@ -5,6 +5,7 @@
 #include "SettingsState.h"
 
 
+
 class MainMenuState :
     public State
 {
@@ -25,7 +26,7 @@ private:
     
 
 public:
-    MainMenuState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states);
+    MainMenuState(StateData* state_data);
     virtual ~MainMenuState();
 
     //Functions
