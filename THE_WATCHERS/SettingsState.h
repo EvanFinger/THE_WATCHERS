@@ -13,13 +13,22 @@ private:
     sf::Text title;
 
     std::map<std::string, gui::Button*> buttons;
+    std::map<std::string, gui::DropdownList*> dropDownLists;
+
+    sf::Text optionsText;
+
+    std::vector<sf::VideoMode> modes;
+
+    
 
     //Functions
+    void initVariables();
     void initFonts();
     void initKeybinds();
     void initTextures();
     void initTitle();
-    void initButtons();
+    void initGui();
+    void initText();
 
 public:
 
@@ -31,9 +40,9 @@ public:
     //Functions
 
     void updateInput(const float& dt);
-    void updateButtons();
+    void updateGui();
     void update(const float& dt);
-    void renderButtons(sf::RenderTarget* target = nullptr);
+    void renderGui(sf::RenderTarget* target = nullptr);
     void render(sf::RenderTarget* target = nullptr);
 };
 

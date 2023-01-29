@@ -2,6 +2,11 @@
 
 //Inits
 
+void SettingsState::initVariables()
+{
+	this->modes = sf::VideoMode::getFullscreenModes();
+}
+
 void SettingsState::initFonts()
 {
 	if (!this->font.loadFromFile("Fonts/yoster.ttf"))
@@ -37,7 +42,7 @@ void SettingsState::initTitle()
 {
 	this->title.setFont(this->font);
 	this->title.setCharacterSize(this->window->getSize().x / 20.f);
-	this->title.setString("THE WATCHERS");
+	this->title.setString("SETTINGS");
 
 	this->title.setPosition(
 		this->window->getSize().x / 2.f - this->title.getGlobalBounds().width / 2.f,
@@ -45,34 +50,79 @@ void SettingsState::initTitle()
 	);
 }
 
-void SettingsState::initButtons()
+void SettingsState::initGui()
 {
 	float button_width = this->window->getSize().x / 6.4f, button_height = this->window->getSize().y / 12.8f;
 	float button_xPos = this->window->getSize().x / 2.f - button_width / 2.f;
 	float button_yOffset = this->title.getPosition().y + this->title.getGlobalBounds().height * 2.5f;
 
-	this->buttons["EXIT_STATE"] = new gui::Button(0, button_xPos, button_yOffset + button_height * 3.75f, button_width, button_height,
-		&this->font, button_width / 6.25f, "QUIT",
+	this->buttons["BACK"] = new gui::Button(
+		0, 
+		this->window->getSize().x / 27.429f, this->window->getSize().y / 1.174f, button_width, button_height,
+		&this->font, button_width / 6.25f, "Back",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
-		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
+	);
+
+	this->buttons["APPLY"] = new gui::Button(
+		0, 
+		this->window->getSize().x / 1.239f, this->window->getSize().y / 1.174f, button_width, button_height,
+		&this->font, button_width / 6.25f, "APPLY",
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
+	);
+
+	std::vector<std::string> modes_str;
+	for (auto& iterator : this->modes)
+	{
+		modes_str.push_back(std::to_string(iterator.width) + "x" + std::to_string(iterator.height));
+	}
+	this->dropDownLists["RESOLUTION"] = new gui::DropdownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size());
+}
+
+void SettingsState::initText()
+{
+	this->optionsText.setFont(this->font);
+
+	this->optionsText.setPosition(sf::Vector2f(100.f, 450));
+
+	this->optionsText.setCharacterSize(30);
+	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
+
+
+	this->optionsText.setString(
+		"Resolution\n\nFullscreen\n\nVsync\n\nAntialiasing\n\n"
+
+	);
 }
 
 SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
+	this->initVariables();
 	this->initFonts();
 	this->initKeybinds();
 	this->initTextures();
 	this->initTitle();
-	this->initButtons();
+	this->initGui();
+	this->initText();
 }
 
 SettingsState::~SettingsState()
 {
+	//Deletes GUI elements after state is ended
+	// 
+	//buttons
 	auto iterator = this->buttons.begin();
 	for (iterator = this->buttons.begin(); iterator != this->buttons.end(); ++iterator)
 	{
 		delete iterator->second;
+	}
+	//dropdowns
+	auto iterator2 = this->dropDownLists.begin();
+	for (iterator2 = this->dropDownLists.begin(); iterator2 != this->dropDownLists.end(); ++iterator2)
+	{
+		delete iterator2->second;
 	}
 }
 
@@ -85,19 +135,34 @@ void SettingsState::updateInput(const float& dt)
 
 }
 
-void SettingsState::updateButtons()
+void SettingsState::updateGui()
 {
-	/*Updates all buttons in this state w/ functionalities*/
+	/*Updates all gui elements in this state w/ functionalities*/
+	//BUTTONS
 	for (auto& iterator : this->buttons)
 	{
 		iterator.second->update(this->mousePosView);
 	}
-
+	//BUTTON FUNCTIONALITIES
+	
 	//Quit Game
-	if (this->buttons["EXIT_STATE"]->isPressed())
+	if (this->buttons["BACK"]->isPressed())
 	{
 		this->endState();
 	}
+	//Apply Selected Settings
+	if (this->buttons["APPLY"]->isPressed())
+	{
+		//TEST REMOVE LATER
+		this->window->create(this->modes[this->dropDownLists["RESOLUTION"]->getActiveId()], "test", sf::Style::Default);
+	}
+
+	//DROPDOWNS
+	for (auto& iterator : this->dropDownLists)
+	{
+		iterator.second->update(this->mousePosView);
+	}
+	//DROPDOWNS FUNCTIONALITIES
 }
 
 void SettingsState::update(const float& dt)
@@ -105,14 +170,19 @@ void SettingsState::update(const float& dt)
 	this->updateMousePositions();
 	this->updateInput(dt);
 
-	this->updateButtons();
+	this->updateGui();
 
 
 }
 
-void SettingsState::renderButtons(sf::RenderTarget* target)
+void SettingsState::renderGui(sf::RenderTarget* target)
 {
 	for (auto& iterator : this->buttons)
+	{
+		iterator.second->render(*target);
+	}
+
+	for (auto& iterator : this->dropDownLists)
 	{
 		iterator.second->render(*target);
 	}
@@ -125,5 +195,21 @@ void SettingsState::render(sf::RenderTarget* target)
 
 	target->draw(this->background);
 	target->draw(this->title);
-	this->renderButtons(target);
+	this->renderGui(target);
+
+	target->draw(this->optionsText);
+
+
+	//REMOVE LATER
+	sf::Text mouseText;
+	mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 50);
+	mouseText.setFont(this->font);
+	mouseText.setCharacterSize(12);
+	std::stringstream ss;
+	ss << this->mousePosView.x << " " << this->mousePosView.y;
+	mouseText.setString(ss.str());
+	target->draw(mouseText);
+
 }
+
+
