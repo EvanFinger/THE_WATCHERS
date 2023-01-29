@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MovementComp.h"
 
 MovementComponent::MovementComponent(sf::Sprite& sprite, 

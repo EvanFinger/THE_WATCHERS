@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "CharacterSelectState.h"
 
 void CharacterSelectState::initFonts()

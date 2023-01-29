@@ -1,5 +1,6 @@
+#include "stdafx.h"
 #include "HealthComponent.h"
-#include <iostream>
+
 
 HealthComponent::HealthComponent(int max_health, int armor)
 {

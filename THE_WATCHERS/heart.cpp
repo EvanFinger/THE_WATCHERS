@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "heart.h"
 
 heart::heart(float x, float y, sf::Texture& texture_sheet)

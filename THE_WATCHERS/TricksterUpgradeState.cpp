@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "TricksterUpgradeState.h"
 
 void TricksterUpgradeState::initFonts()

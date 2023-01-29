@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SwordUpgradeState.h"
 
 void SwordUpgradeState::initFonts()

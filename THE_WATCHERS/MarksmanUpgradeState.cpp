@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MarksmanUpgradeState.h"
 
 void MarksmanUpgradeState::initFonts()
