@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DurabilityComponent.h"
 
 DurabilityComponent::DurabilityComponent(int max_health, int max_shield, int armor)

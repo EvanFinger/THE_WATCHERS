@@ -25,7 +25,7 @@ private:
 
 
 public:
-    TricksterUpgradeState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states);
+    TricksterUpgradeState(StateData* state_data);
     virtual ~TricksterUpgradeState();
 
     //Functions

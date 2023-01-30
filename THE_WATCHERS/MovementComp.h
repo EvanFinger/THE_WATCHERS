@@ -1,20 +1,6 @@
 #ifndef MOVEMENT_COMP_H
 #define MOVEMENT_COMP_H
 
-#include <iostream>
-#include <ctime>
-#include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <stack>
-#include <map>
-
-#include "SFML\System.hpp"
-#include "SFML\Window.hpp"
-#include "SFML\Graphics.hpp"
-#include "SFML\Audio.hpp"
-#include "SFML\Network.hpp"
 
 class MovementComponent
 {

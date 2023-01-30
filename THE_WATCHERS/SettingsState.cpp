@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SettingsState.h"
 
 //Inits
@@ -50,7 +51,7 @@ void SettingsState::initTitle()
 	);
 }
 
-void SettingsState::initGui()
+void SettingsState::initGui(unsigned short default_index)
 {
 	float button_width = this->window->getSize().x / 6.4f, button_height = this->window->getSize().y / 12.8f;
 	float button_xPos = this->window->getSize().x / 2.f - button_width / 2.f;
@@ -72,32 +73,47 @@ void SettingsState::initGui()
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
+	this->buttons["SAVE"] = new gui::Button(
+		0,
+		this->window->getSize().x / 1.239f - button_width, this->window->getSize().y / 1.174f, button_width, button_height,
+		&this->font, button_width / 6.25f, "SAVE",
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
+	);
+
+	//Resolution
 	std::vector<std::string> modes_str;
 	for (auto& iterator : this->modes)
 	{
 		modes_str.push_back(std::to_string(iterator.width) + "x" + std::to_string(iterator.height));
 	}
-	this->dropDownLists["RESOLUTION"] = new gui::DropdownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size());
+	std::string list[]= { "123", "456", "789"};
+	//test
+	this->arrowSelectors["RESOLUTION"] = new gui::ArrowSelection(
+		this->stateData->window->getSize().x / 6.4, this->stateData->window->getSize().y / 10.8, 250, 40,
+		this->font, modes_str.data(), modes_str.size(), default_index
+	);
+	
 }
 
 void SettingsState::initText()
 {
 	this->optionsText.setFont(this->font);
 
-	this->optionsText.setPosition(sf::Vector2f(100.f, 450));
+	this->optionsText.setPosition(sf::Vector2f(this->stateData->window->getSize().x / 19.2f, this->stateData->window->getSize().y / 10.8));
 
 	this->optionsText.setCharacterSize(30);
 	this->optionsText.setFillColor(sf::Color(255, 255, 255, 200));
 
 
 	this->optionsText.setString(
-		"Resolution\n\nFullscreen\n\nVsync\n\nAntialiasing\n\n"
+		"Resolution\n\n\nFullscreen\n\n\nVsync\n\n\nAntialiasing\n\n\n"
 
 	);
 }
 
-SettingsState::SettingsState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+SettingsState::SettingsState(StateData* state_data)
+	: State(state_data), gfxSettings(*state_data->gfxSettings)
 {
 	this->initVariables();
 	this->initFonts();
@@ -124,11 +140,36 @@ SettingsState::~SettingsState()
 	{
 		delete iterator2->second;
 	}
+
+	auto iterator3 = this->arrowSelectors.begin();
+	for (iterator3 = this->arrowSelectors.begin(); iterator3 != this->arrowSelectors.end(); ++iterator3)
+	{
+		delete iterator3->second;
+	}
 }
 
 //Access
 
 //Functions
+
+void SettingsState::refreshState(unsigned short default_index)
+{
+	auto iterator = this->buttons.begin();
+	for (iterator = this->buttons.begin(); iterator != this->buttons.end(); ++iterator)
+	{
+		delete iterator->second;
+	}
+
+	auto iterator2 = this->dropDownLists.begin();
+	for (iterator2 = this->dropDownLists.begin(); iterator2 != this->dropDownLists.end(); ++iterator2)
+	{
+		delete iterator2->second;
+	}
+
+	initGui(default_index);
+	initTitle();
+	initText();
+}
 
 void SettingsState::updateInput(const float& dt)
 {
@@ -153,8 +194,24 @@ void SettingsState::updateGui()
 	//Apply Selected Settings
 	if (this->buttons["APPLY"]->isPressed())
 	{
-		//TEST REMOVE LATER
-		this->window->create(this->modes[this->dropDownLists["RESOLUTION"]->getActiveId()], "test", sf::Style::Default);
+		this->stateData->gfxSettings->resolution = this->modes[this->arrowSelectors["RESOLUTION"]->getActiveIndex()];
+
+		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+
+		this->refreshState(this->arrowSelectors["RESOLUTION"]->getActiveIndex());
+	}
+	if (this->buttons["SAVE"]->isPressed())
+	{
+		this->stateData->gfxSettings->resolution = this->modes[this->arrowSelectors["RESOLUTION"]->getActiveIndex()];
+
+		//set active window to new settings
+		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+
+		//Save Changes to .ini
+		this->stateData->gfxSettings->saveToFile("Config/graphics.ini");
+
+		//update gui scale and position
+		this->refreshState(this->arrowSelectors["RESOLUTION"]->getActiveIndex());
 	}
 
 	//DROPDOWNS
@@ -163,6 +220,12 @@ void SettingsState::updateGui()
 		iterator.second->update(this->mousePosView);
 	}
 	//DROPDOWNS FUNCTIONALITIES
+
+	//ARROW SELECTORS
+	for (auto& iterator : this->arrowSelectors)
+	{
+		iterator.second->update(this->mousePosView);
+	}
 }
 
 void SettingsState::update(const float& dt)
@@ -183,6 +246,11 @@ void SettingsState::renderGui(sf::RenderTarget* target)
 	}
 
 	for (auto& iterator : this->dropDownLists)
+	{
+		iterator.second->render(*target);
+	}
+
+	for (auto& iterator : this->arrowSelectors)
 	{
 		iterator.second->render(*target);
 	}

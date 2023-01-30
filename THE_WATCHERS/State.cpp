@@ -1,12 +1,15 @@
+#include "stdafx.h"
 #include "State.h"
 
-State::State(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
+State::State(StateData* state_data)
 {
-	this->window = window;
-	this->supportedKeys = supportedKeys;
-	this->states = states;
+	this->stateData = state_data;
+	this->window = state_data->window;
+	this->supportedKeys = state_data->supportedKeys;
+	this->states = state_data->states;
 	this->quit = false;
 	this->paused = false;
+	this->gridSize = state_data->gridSize;
 }
 
 State::~State()
@@ -40,5 +43,7 @@ void State::updateMousePositions()
 	this->mousePosWindow = sf::Mouse::getPosition(*this->window);
 	this->mousePosView = this->window->mapPixelToCoords(sf::Mouse::getPosition(*this->window));
 }
+
+
 
 

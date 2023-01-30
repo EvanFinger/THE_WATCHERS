@@ -31,7 +31,7 @@ private:
 
 
 public:
-    CharacterSelectState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states);
+    CharacterSelectState(StateData* state_data);
     virtual ~CharacterSelectState();
 
     //Functions

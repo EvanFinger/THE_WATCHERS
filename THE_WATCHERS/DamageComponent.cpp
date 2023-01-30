@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "DamageComponent.h"
 
 DamageComponent::DamageComponent(int damage)

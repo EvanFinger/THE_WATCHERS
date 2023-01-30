@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "MarksmanUpgradeState.h"
 
 void MarksmanUpgradeState::initFonts()
@@ -59,8 +60,8 @@ void MarksmanUpgradeState::initButtons()
 
 }
 
-MarksmanUpgradeState::MarksmanUpgradeState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states)
-	: State(window, supportedKeys, states)
+MarksmanUpgradeState::MarksmanUpgradeState(StateData* state_data)
+	: State(state_data)
 {
 	this->initFonts();
 	this->initKeybinds();
@@ -100,7 +101,7 @@ void MarksmanUpgradeState::updateButtons()
 	//Begins Game State
 	if (this->buttons["GAME_STATE_BUTTON"]->isPressed())
 	{
-		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+		this->states->push(new GameState(this->stateData));
 	}
 
 	//Back to Character Select State

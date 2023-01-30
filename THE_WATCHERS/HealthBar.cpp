@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "HealthBar.h"
 
 void HealthBar::initComponents()

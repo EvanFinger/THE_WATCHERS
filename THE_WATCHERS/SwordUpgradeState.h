@@ -24,7 +24,7 @@ private:
 
 
 public:
-    SwordUpgradeState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states);
+    SwordUpgradeState(StateData* state_data);
     virtual ~SwordUpgradeState();
 
     //Functions

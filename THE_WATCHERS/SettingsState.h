@@ -8,12 +8,14 @@ class SettingsState :
 
 private:
     //Variables
+    GraphicsSettings& gfxSettings;
     sf::RectangleShape background;
     sf::Font font;
     sf::Text title;
 
     std::map<std::string, gui::Button*> buttons;
     std::map<std::string, gui::DropdownList*> dropDownLists;
+    std::map<std::string, gui::ArrowSelection*> arrowSelectors;
 
     sf::Text optionsText;
 
@@ -27,18 +29,19 @@ private:
     void initKeybinds();
     void initTextures();
     void initTitle();
-    void initGui();
+    void initGui(unsigned short default_index = 0);
     void initText();
 
 public:
 
-    SettingsState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states);
+    SettingsState(StateData* state_data);
     virtual ~SettingsState();
 
     //Access
 
     //Functions
 
+    void refreshState(unsigned short default_index = 0);
     void updateInput(const float& dt);
     void updateGui();
     void update(const float& dt);

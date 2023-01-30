@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "ShieldComponent.h"
 
 ShieldComponent::ShieldComponent(int max_shield)

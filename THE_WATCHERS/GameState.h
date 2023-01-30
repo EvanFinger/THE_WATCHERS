@@ -27,7 +27,7 @@ private:
     void initPlayer();
 
 public:
-    GameState(sf::RenderWindow* window, std::map<std::string, sf::Keyboard::Key>* supportedKeys, std::stack<State*>* states);
+    GameState(StateData* state_data);
     virtual ~GameState();
 
     //Functions
