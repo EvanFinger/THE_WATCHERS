@@ -28,7 +28,7 @@ private:
     void initKeybinds();
     void initTextures();
     void initTitle();
-    void initGui();
+    void initGui(unsigned short default_index = 0);
     void initText();
 
 public:
@@ -40,6 +40,7 @@ public:
 
     //Functions
 
+    void refreshState(unsigned short default_index = 0);
     void updateInput(const float& dt);
     void updateGui();
     void update(const float& dt);

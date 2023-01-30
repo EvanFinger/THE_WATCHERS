@@ -51,7 +51,7 @@ void SettingsState::initTitle()
 	);
 }
 
-void SettingsState::initGui()
+void SettingsState::initGui(unsigned short default_index)
 {
 	float button_width = this->window->getSize().x / 6.4f, button_height = this->window->getSize().y / 12.8f;
 	float button_xPos = this->window->getSize().x / 2.f - button_width / 2.f;
@@ -73,12 +73,20 @@ void SettingsState::initGui()
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0)
 	);
 
+	//Resolution
 	std::vector<std::string> modes_str;
 	for (auto& iterator : this->modes)
 	{
 		modes_str.push_back(std::to_string(iterator.width) + "x" + std::to_string(iterator.height));
 	}
-	this->dropDownLists["RESOLUTION"] = new gui::DropdownList(800, 450, 200, 50, font, modes_str.data(), modes_str.size());
+	this->dropDownLists["RESOLUTION"] = new gui::DropdownList(
+		800, 450, 200, 50,
+		font, modes_str.data(),
+		modes_str.size(),
+		default_index
+	);
+	std::cout << this->stateData->window->getSize().x << "x" << this->stateData->window->getSize().y;;
+	
 }
 
 void SettingsState::initText()
@@ -131,6 +139,25 @@ SettingsState::~SettingsState()
 
 //Functions
 
+void SettingsState::refreshState(unsigned short default_index)
+{
+	auto iterator = this->buttons.begin();
+	for (iterator = this->buttons.begin(); iterator != this->buttons.end(); ++iterator)
+	{
+		delete iterator->second;
+	}
+
+	auto iterator2 = this->dropDownLists.begin();
+	for (iterator2 = this->dropDownLists.begin(); iterator2 != this->dropDownLists.end(); ++iterator2)
+	{
+		delete iterator2->second;
+	}
+
+	initGui(default_index);
+	initTitle();
+	initText();
+}
+
 void SettingsState::updateInput(const float& dt)
 {
 
@@ -155,9 +182,11 @@ void SettingsState::updateGui()
 	if (this->buttons["APPLY"]->isPressed())
 	{
 		//TEST REMOVE LATER
-		this->gfxSettings.resolution = this->modes[this->dropDownLists["RESOLUTION"]->getActiveId()];
+		this->stateData->gfxSettings->resolution = this->modes[this->dropDownLists["RESOLUTION"]->getActiveId()];
 
-		this->window->create(this->gfxSettings.resolution, this->gfxSettings.title, sf::Style::Default);
+		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+
+		this->refreshState(this->dropDownLists["RESOLUTION"]->getActiveId());
 	}
 
 	//DROPDOWNS
