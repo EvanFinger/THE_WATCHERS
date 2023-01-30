@@ -18,11 +18,11 @@ void GraphicsSettings::saveToFile(const std::string path)
 
 	if (file.is_open())
 	{
-		file << this->title;
-		file << this->resolution.width << " " << resolution.height;
-		file << fullscreen;
-		file << this->frameRateLimit;
-		file << this->verticalSync;
+		file << this->title << "\n";
+		file << this->resolution.width << " " << resolution.height << "\n";
+		file << fullscreen << "\n";
+		file << this->frameRateLimit << "\n";
+		file << this->verticalSync << "\n";
 		file << this->contextSettings.antialiasingLevel;
 	}
 

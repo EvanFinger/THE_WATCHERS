@@ -40,7 +40,7 @@ namespace gui
 		Button(
 			bool toggleable, 
 			float x, float y, float width, float height,
-			sf::Font* font, unsigned int fonstSize, std::string text,
+			sf::Font* font, unsigned int fontSize, std::string text,
 			sf::Color text_idle_color, sf::Color text_hover_color, sf::Color text_active_color,
 			sf::Color idle_color, sf::Color hover_color, sf::Color active_color,
 			sf::Color outline_idle_color = sf::Color::Transparent, sf::Color outline_hover_color = sf::Color::Transparent, sf::Color outline_active_color = sf::Color::Transparent,
@@ -54,7 +54,11 @@ namespace gui
 		const short unsigned& getId() const;
 
 		//Modifiers
-		void setText(const std::string text);
+		void setText(const std::string text);\
+		void setSize(float width, float height, unsigned int font_Size);
+		void setSize(float width, float height);
+		void setPosition(float x, float y);
+		
 		
 
 		//Functions
@@ -87,6 +91,42 @@ namespace gui
 		//Functions
 		void update(const sf::Vector2f& mousePos);
 		void render(sf::RenderTarget& target);
+	};
+
+//ARROWSELECTION CLASS (MADE BY ME)
+	class ArrowSelection
+	{
+	private:
+		sf::Font& font;
+		gui::Button* indexLeft;
+		gui::Button* indexRight;
+		sf::RectangleShape shape;
+		sf::Text activeItem;
+		std::vector<std::string> list;
+		unsigned short activeIndex;
+	public:
+		ArrowSelection(
+			float x, float y, float width, float height, 
+			sf::Font& font, std::string list[],
+			unsigned short num_of_elements, unsigned short default_index = 0
+		);
+		~ArrowSelection();
+
+		//Access
+		const unsigned short getActiveIndex() const;
+
+		//Funtions
+		void update(const sf::Vector2f& mousePos);
+		void render(sf::RenderTarget& target);
+	};
+
+//TOGGLE SWITCH CLASS (MADE BY ME)
+	class ToggleSwitch
+	{
+	private:
+
+	public:
+
 	};
 }
 #endif

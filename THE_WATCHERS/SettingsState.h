@@ -15,6 +15,7 @@ private:
 
     std::map<std::string, gui::Button*> buttons;
     std::map<std::string, gui::DropdownList*> dropDownLists;
+    std::map<std::string, gui::ArrowSelection*> arrowSelectors;
 
     sf::Text optionsText;
 

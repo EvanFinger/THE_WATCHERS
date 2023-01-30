@@ -61,4 +61,4 @@ public:
 	virtual void render(sf::RenderTarget* target = nullptr) = 0;
 };
 
-#endif
+#endif 

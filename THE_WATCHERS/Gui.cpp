@@ -7,6 +7,7 @@ BUTTON CLASS (credit in .h)
 
 --------------------------------------------------
 */
+#ifndef BUTTON
 
 gui::Button::Button(
 	bool toggleable, 
@@ -89,6 +90,28 @@ const short unsigned& gui::Button::getId() const
 void gui::Button::setText(const std::string text) 
 {
 	this->text.setString(text);
+}
+
+void gui::Button::setPosition(float x, float y)
+{
+	this->shape.setPosition(sf::Vector2f(x, y));
+
+	this->text.setPosition(
+		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f,
+		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height
+	);
+}
+
+void gui::Button::setSize(float width, float height, unsigned int font_Size)
+{
+	this->shape.setSize(sf::Vector2f(width, height));
+
+	this->text.setCharacterSize(font_Size);
+}
+
+void gui::Button::setSize(float width, float height)
+{
+	this->shape.setSize(sf::Vector2f(width, height));
 }
 
 
@@ -196,7 +219,7 @@ void gui::Button::render(sf::RenderTarget& target)
 		target.draw(this->text);
 	}
 }
-
+#endif 
 /*
 --------------------------------------------------
 
@@ -204,6 +227,7 @@ DROPDOWN MENU CLASS (credit in .h)
 
 --------------------------------------------------
 */
+#ifndef DROPDOWN_LIST
 
 gui::DropdownList::DropdownList(float x, float y, float width, float height, sf::Font& font, std::string list[], unsigned numberOfElements, unsigned default_index)
 	: font(font), showList(false)
@@ -297,3 +321,110 @@ void gui::DropdownList::render(sf::RenderTarget& target)
 	}
 	
 }
+
+#endif
+
+/*
+--------------------------------------------------
+
+ARROW SELECTION CLASS (credit in .h)
+
+--------------------------------------------------
+*/
+#ifndef ARROW_SELECTOR
+
+gui::ArrowSelection::ArrowSelection(
+	float x, float y, float width, float height,
+	sf::Font& font, std::string list[],
+	unsigned short num_of_elements, unsigned short default_index
+)
+	:font(font)
+{
+	this->activeIndex = default_index;
+	for (size_t i = 0; i < num_of_elements; i++)
+	{
+		this->list.push_back(
+			list[i]
+		);
+	}
+
+	this->indexLeft = new gui::Button(
+		0,
+		x, y, width * 0.2f, height,
+		&this->font, 12, "<-",
+		sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200),
+		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 200)
+	);
+
+	this->shape.setPosition(
+		x + width * 0.2f,
+		y
+	);
+	this->shape.setSize(sf::Vector2f(width * 0.6f, height));
+	this->shape.setFillColor(sf::Color(70, 70, 70, 200));
+	this->shape.setOutlineThickness(1);
+	this->shape.setOutlineColor(sf::Color(255, 255, 255, 200));
+	
+	this->activeItem.setFont(this->font);
+	this->activeItem.setFillColor(sf::Color(255, 255, 255, 150));
+	this->activeItem.setCharacterSize(24);
+	this->activeItem.setString(this->list[default_index]);
+	this->activeItem.setPosition(
+		this->shape.getPosition().x + this->shape.getGlobalBounds().width * 0.5 - this->activeItem.getGlobalBounds().width * 0.5,
+		this->shape.getPosition().y + this->shape.getGlobalBounds().height * 0.5 - this->activeItem.getGlobalBounds().height
+	);
+
+	this->indexRight = new gui::Button(
+		0,
+		x + width * 0.8f, y, width * 0.2f, height,
+		&this->font, 12, "->",
+		sf::Color(255, 255, 255, 150), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 50),
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200),
+		sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 200), sf::Color(20, 20, 20, 200)
+	);
+}
+
+gui::ArrowSelection::~ArrowSelection()
+{
+	delete this->indexLeft;
+	delete this->indexRight;
+}
+
+const unsigned short gui::ArrowSelection::getActiveIndex() const
+{
+	return this->activeIndex;
+}
+
+void gui::ArrowSelection::update(const sf::Vector2f& mousePos)
+{
+	this->indexLeft->update(mousePos);
+	if (this->indexLeft->isPressed())
+	{
+		if (this->activeIndex > 0)
+			this->activeIndex -= 1;
+		else
+			this->activeIndex = this->list.size() - 1;
+	}
+
+	this->indexRight->update(mousePos);
+	if (this->indexRight->isPressed())
+	{
+		if (this->activeIndex < this->list.size() - 1)
+			this->activeIndex += 1;
+		else
+			this->activeIndex = 0;
+	}
+
+	this->activeItem.setString(this->list[activeIndex]);
+}
+
+void gui::ArrowSelection::render(sf::RenderTarget& target)
+{
+	this->indexLeft->render(target);
+	target.draw(this->shape);
+	target.draw(this->activeItem);
+	this->indexRight->render(target);
+}
+
+#endif

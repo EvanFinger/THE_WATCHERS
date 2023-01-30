@@ -22,7 +22,7 @@ private:
     void initKeybinds();
     void initTextures();
     void initTitle();
-    void initButtons();
+    void initGui();
     
 
 public:
@@ -31,7 +31,7 @@ public:
 
     //Functions
 
-
+    void refresh();
     void updateInput(const float& dt);
     void updateButtons();
     void update(const float& dt);

@@ -44,28 +44,28 @@ void MainMenuState::initTitle()
 		);
 }
 
-void MainMenuState::initButtons()
+void MainMenuState::initGui()
 {
 	float button_width = this->window->getSize().x / 6.4f, button_height = this->window->getSize().y / 12.8f;
 	float button_xPos = this->window->getSize().x / 2.f - button_width / 2.f;
 	float button_yOffset = this->title.getPosition().y + this->title.getGlobalBounds().height * 2.5f;
 
-	this->buttons["CHARACTER_SELECT_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset, button_width, button_height,
+	this->buttons["1CHARACTER_SELECT_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset, button_width, button_height,
 		&this->font, button_width / 6.25f, "START",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["ACHIEVEMENT_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 1.25f, button_width, button_height,
+	this->buttons["2ACHIEVEMENT_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 1.25f, button_width, button_height,
 		&this->font, button_width / 6.25f, "ACHIEVEMENTS",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["SETTINGS_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 2.5f, button_width, button_height,
+	this->buttons["3SETTINGS_STATE_BUTTON"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 2.5f, button_width, button_height,
 		&this->font, button_width / 6.25f, "SETTINGS",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
 
-	this->buttons["EXIT_STATE"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 3.75f, button_width, button_height,
+	this->buttons["4EXIT_STATE"] = new gui::Button(0,button_xPos, button_yOffset + button_height * 3.75f, button_width, button_height,
 		&this->font, button_width / 6.25f, "QUIT",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 250), sf::Color(20, 20, 20, 50),
 		sf::Color(70, 70, 70, 0), sf::Color(150, 150, 150, 0), sf::Color(20, 20, 20, 0));
@@ -80,7 +80,7 @@ MainMenuState::MainMenuState(StateData* state_data)
 	this->initKeybinds();
 	this->initTextures();
 	this->initTitle();
-	this->initButtons();
+	this->initGui();
 	
 
 	
@@ -98,6 +98,29 @@ MainMenuState::~MainMenuState()
 	}
 }
 
+void MainMenuState::refresh()
+{
+	
+
+	this->background.setSize(sf::Vector2f(window->getSize()));
+	this->initTitle();
+
+	int i = 0;
+	for (auto& iterator : this->buttons)
+	{
+		iterator.second->setSize(
+			this->window->getSize().x / 6.4f, 
+			(this->window->getSize().y / 12.8f),
+			(this->window->getSize().x / 6.4f) / 6.25f
+		);
+		iterator.second->setPosition(
+			this->window->getSize().x / 2.f - (this->window->getSize().x / 6.4f) / 2.f, 
+			(this->title.getPosition().y + this->title.getGlobalBounds().height * 2.5f) + (this->window->getSize().y / 12.8f) * 1.25 * i
+		);
+		i ++;
+	}
+}
+
 void MainMenuState::updateInput(const float& dt)
 {
 
@@ -112,18 +135,18 @@ void MainMenuState::updateButtons()
 	}
 	
 	//New Game
-	if (this->buttons["CHARACTER_SELECT_STATE_BUTTON"]->isPressed())
+	if (this->buttons["1CHARACTER_SELECT_STATE_BUTTON"]->isPressed())
 	{
 		this->states->push(new CharacterSelectState(this->stateData));
 	}
 
-	if (this->buttons["SETTINGS_STATE_BUTTON"]->isPressed())
+	if (this->buttons["3SETTINGS_STATE_BUTTON"]->isPressed())
 	{
 		this->states->push(new SettingsState(this->stateData));
 	}
 
 	//Quit Game
-	if (this->buttons["EXIT_STATE"]->isPressed())
+	if (this->buttons["4EXIT_STATE"]->isPressed())
 	{
 		this->endState();
 	}
@@ -131,12 +154,12 @@ void MainMenuState::updateButtons()
 
 void MainMenuState::update(const float& dt)
 {
-
+	this->refresh();
 	this->updateMousePositions();
 	this->updateInput(dt);
-
 	this->updateButtons();
-
+	
+	
 	
 }
 
