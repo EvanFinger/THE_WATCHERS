@@ -428,3 +428,143 @@ void gui::ArrowSelection::render(sf::RenderTarget& target)
 }
 
 #endif
+
+/*
+--------------------------------------------------
+
+ARROW SELECTION CLASS (credit in .h)
+
+--------------------------------------------------
+*/
+#ifndef TOGGLE_SWITCH
+
+gui::ToggleSwitch::ToggleSwitch(float x, float y, float width, float height, sf::Color switch_background, sf::Color switch_active, sf::Color switch_lever, bool init_state)
+{
+	this->switchBackground = switch_background;
+	this->switchActive = switch_active;
+	this->switchLever = switch_lever;
+
+	this->switchOff.setPosition(x, y);
+	this->switchOff.setSize(sf::Vector2f(width * 0.5f, height * 0.5f));
+	this->switchOff.setFillColor(this->switchLever);
+
+	this->switchOn.setPosition(x + width * 0.5, y);
+	this->switchOn.setSize(sf::Vector2f(width * 0.5f, height * 0.5f));
+	this->switchOn.setFillColor(this->switchBackground);
+
+	this->hoverSwitchBackground = sf::Color(
+		this->switchBackground.r, this->switchBackground.g, this->switchBackground.b, this->switchBackground.a - 50
+	);
+	this->hoverSwitchActive = sf::Color(
+		this->switchActive.r, this->switchActive.g, this->switchActive.b, this->switchActive.a - 50
+	);
+	this->hoverSwitchLever = sf::Color(
+		this->switchLever.r, this->switchLever.g, this->switchLever.b, this->switchLever.a - 50
+	);
+
+	this->clickedSwitchBackground = sf::Color(
+		this->switchBackground.r, this->switchBackground.g, this->switchBackground.b, this->switchBackground.a - 100
+	);
+	this->clickedSwitchActive = sf::Color(
+		this->switchActive.r, this->switchActive.g, this->switchActive.b, this->switchActive.a - 100
+	);
+	this->clickedSwitchLever = sf::Color(
+		this->switchLever.r, this->switchLever.g, this->switchLever.b, this->switchLever.a - 100
+	);
+
+	this->state = BTN_IDLE;
+	this->mouseDown = false;
+	this->toggled = init_state;
+
+
+
+}
+
+gui::ToggleSwitch::~ToggleSwitch()
+{
+}
+
+const bool gui::ToggleSwitch::getToggled() const
+{
+	return this->toggled;
+}
+
+void gui::ToggleSwitch::update(const sf::Vector2f& mousePos)
+{
+	this->state = BTN_IDLE;
+
+	if (this->switchOff.getGlobalBounds().contains(mousePos) || this->switchOn.getGlobalBounds().contains(mousePos))
+	{
+		this->state = BTN_HOVER;
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->state = BTN_ACTIVE;
+			this->mouseDown = true;
+		}
+
+		if (this->mouseDown && !sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			this->state = BTN_CLICKED;
+			this->mouseDown = false;
+
+			if (!this->toggled)
+			{
+				this->toggled = true;
+			}
+			else if (this->toggled)
+			{
+				this->toggled = false;
+			}
+		}
+
+		
+	}
+	switch (state)
+		{
+		case BTN_IDLE:
+			if (toggled)
+			{ 
+				this->switchOff.setFillColor(this->switchActive);
+				this->switchOn.setFillColor(this->switchLever);
+			}
+			else
+			{
+				this->switchOff.setFillColor(this->switchLever);
+				this->switchOn.setFillColor(this->switchBackground);
+			}
+			break;
+		case BTN_HOVER:
+			if (toggled)
+			{
+				this->switchOff.setFillColor(this->hoverSwitchActive);
+				this->switchOn.setFillColor(this->hoverSwitchLever);
+			}
+			else
+			{
+				this->switchOff.setFillColor(this->hoverSwitchLever);
+				this->switchOn.setFillColor(this->hoverSwitchBackground);
+			}
+			break;
+		case BTN_ACTIVE:
+			if (toggled)
+			{
+				this->switchOff.setFillColor(this->clickedSwitchActive);
+				this->switchOn.setFillColor(this->clickedSwitchLever);
+			}
+			else
+			{
+				this->switchOff.setFillColor(this->clickedSwitchLever);
+				this->switchOn.setFillColor(this->clickedSwitchBackground);
+			}
+			break;
+		}
+}
+
+void gui::ToggleSwitch::render(sf::RenderTarget& target)
+{
+	target.draw(this->switchOff);
+	target.draw(this -> switchOn);
+}
+
+#endif 
