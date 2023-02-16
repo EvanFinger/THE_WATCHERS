@@ -96,7 +96,8 @@ void SettingsState::initGui(unsigned short default_index, bool fullscreen)
 
 	//FullScreen
 	this->toggleSwitches["FULLSCREEN"] = new gui::ToggleSwitch(
-		400, 240, 150, 50,
+		this->stateData->window->getSize().x / 4.8f, this->stateData->window->getSize().y / 4.5, 
+		this->stateData->window->getSize().x / 12.8, this->stateData->window->getSize().y / 21.6,
 		sf::Color(20, 30, 60, 200), sf::Color(50, 60, 60, 200), sf::Color(255, 255, 255, 200),
 		fullscreen
 	);

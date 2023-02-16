@@ -4,6 +4,7 @@
 #include "State.h"
 #include "PauseMenu.h"
 #include "HealthBar.h"
+#include "Tilemap.h"
 
 class GameState :
     public State
@@ -16,6 +17,8 @@ private:
 
     HealthBar* healthbar;
 
+    Tilemap* tilemap;
+
     bool keyPressed;
 
     //Functions
@@ -24,6 +27,7 @@ private:
     void initTextures();
     void initPauseMenu();
     void initHealthbar();
+    void initTilemap();
     void initPlayer();
 
 public:

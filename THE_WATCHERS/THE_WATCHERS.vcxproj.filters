@@ -22,11 +22,11 @@
     <Filter Include="Components">
       <UniqueIdentifier>{a3a4e000-dbdd-458d-b338-ac276d903371}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fields">
-      <UniqueIdentifier>{3b1655ba-2e9b-44e0-bfb3-39680e495a50}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Components\Durability">
       <UniqueIdentifier>{2684f4f3-7ae6-4f5b-82c3-d64c7241a4e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tilemap">
+      <UniqueIdentifier>{bbd163da-1801-442d-afa7-2769fda2e9c2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,9 +69,6 @@
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
-    <ClCompile Include="Field.cpp">
-      <Filter>Fields</Filter>
-    </ClCompile>
     <ClCompile Include="DamageComponent.cpp">
       <Filter>Components</Filter>
     </ClCompile>
@@ -104,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="GraphicsSettings.cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>Tilemap</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Tilemap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,9 +146,6 @@
     <ClInclude Include="AnimationComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
-      <Filter>Fields</Filter>
-    </ClInclude>
     <ClInclude Include="DamageComponent.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -178,6 +178,12 @@
     </ClInclude>
     <ClInclude Include="GraphicsSettings.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>Tilemap</Filter>
+    </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Tilemap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

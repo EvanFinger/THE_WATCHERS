@@ -371,7 +371,7 @@ gui::ArrowSelection::ArrowSelection(
 	this->activeItem.setCharacterSize(24);
 	this->activeItem.setString(this->list[default_index]);
 	this->activeItem.setPosition(
-		this->shape.getPosition().x + this->shape.getGlobalBounds().width * 0.5 - this->activeItem.getGlobalBounds().width * 0.5,
+		this ->shape.getPosition().x + this->shape.getGlobalBounds().width * 0.5 - this->activeItem.getGlobalBounds().width * 0.5,
 		this->shape.getPosition().y + this->shape.getGlobalBounds().height * 0.5 - this->activeItem.getGlobalBounds().height
 	);
 

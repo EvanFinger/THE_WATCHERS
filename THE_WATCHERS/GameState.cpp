@@ -54,6 +54,11 @@ void GameState::initHealthbar()
 	this->healthbar = new HealthBar(this->player->durabilityComponent->healthComponent->getMaxHealth(), 0, 0, this->textures["HEALTHBAR_SHEET"]);
 }
 
+void GameState::initTilemap()
+{
+	tilemap = new Tilemap();
+}
+
 void GameState::initPlayer()
 {
 	this->player = new Player(0, 0, 20, this->textures["PLAYER_SHEET"]);
@@ -67,6 +72,7 @@ GameState::GameState(StateData* state_data)
 	this->initFonts();
 	this->initKeybinds();
 	this->initTextures();
+	this->initTilemap();
 	this->initPauseMenu();
 	this->initPlayer();
 	this->initHealthbar();
@@ -80,6 +86,7 @@ GameState::~GameState()
 	delete this->player;
 	delete this->healthbar;
 	delete this->pauseMenu;
+	delete this->tilemap;
 }
 
 
@@ -151,9 +158,10 @@ void GameState::update(const float& dt)
 
 void GameState::render(sf::RenderTarget* target)
 {
+
 	if (!target)
 		target = this->window;
-	
+	this->tilemap->render(*target);
 	this->player->render(target);
 	this->healthbar->render(target);
 
