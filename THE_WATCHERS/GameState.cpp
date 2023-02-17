@@ -2,6 +2,41 @@
 #include "GameState.h"
 
 
+void GameState::initRenderTextureSprite()
+{
+	this->renderTexture.create(
+		this->stateData->gfxSettings->resolution.width,
+		this->stateData->gfxSettings->resolution.height
+	);
+
+	this->renderSprite.setTexture(this->renderTexture.getTexture());
+	this->renderSprite.setTextureRect(
+		sf::IntRect(
+			0, 0,
+			this->stateData->gfxSettings->resolution.width,
+			this->stateData->gfxSettings->resolution.height
+		)
+	);
+		
+}
+
+void GameState::initView()
+{
+	this->view.setSize(
+		sf::Vector2f(
+			this->stateData->gfxSettings->resolution.width,
+			this->stateData->gfxSettings->resolution.height
+		)
+	);
+
+	this->view.setCenter(
+		sf::Vector2f(
+			this->stateData->gfxSettings->resolution.width / 2.f,
+			this->stateData->gfxSettings->resolution.height / 2.f
+		)
+	);
+}
+
 void GameState::initFonts()
 {
 	if (!this->font.loadFromFile("Fonts/yoster.ttf"))
@@ -69,6 +104,8 @@ void GameState::initPlayer()
 GameState::GameState(StateData* state_data)
 	: State(state_data)
 {
+	this->initRenderTextureSprite();
+	this->initView();
 	this->initFonts();
 	this->initKeybinds();
 	this->initTextures();
@@ -89,6 +126,13 @@ GameState::~GameState()
 	delete this->tilemap;
 }
 
+
+void GameState::updatePlayerView(const float& dt)
+{
+	this->view.setCenter(
+	this->player->getEntityPosition()
+	);
+}
 
 void GameState::updateInput(const float& dt)
 {
@@ -142,7 +186,7 @@ void GameState::update(const float& dt)
 	if (!this->paused)//unpaused
 	{
 		
-		
+		this->updatePlayerView(dt);
 		this->updatePlayerInput(dt);
 		this->updateHealthbar();
 
@@ -161,13 +205,23 @@ void GameState::render(sf::RenderTarget* target)
 
 	if (!target)
 		target = this->window;
-	this->tilemap->render(*target);
-	this->player->render(target);
-	this->healthbar->render(target);
+	this->renderTexture.clear();
+
+	this->renderTexture.setView(this->view);
+	this->tilemap->render(this->renderTexture);
+	this->player->render(&this->renderTexture);
 
 	if (this->paused) //render pause window
 	{
-		this->pauseMenu->render(*target);
+		target->setView(this->renderTexture.getDefaultView());
+		this->pauseMenu->render(this->renderTexture);
 	}
 
+	//Finalize the render (things that move with player)
+	this->renderTexture.display();
+	this->renderSprite.setTexture(this->renderTexture.getTexture());
+	target->draw(this->renderSprite);
+
+	//render static objects
+	this->healthbar->render(target);
 }

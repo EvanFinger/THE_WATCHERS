@@ -32,6 +32,10 @@ public:
 	void createAnimationComponent(sf::Texture& texture_sheet);
 	void createDurabilityComponent(int max_health, int max_shield, int armor);
 
+	//access
+	virtual const sf::Vector2f& getEntityPosition() const;
+	virtual const sf::FloatRect& getEntitySize() const;
+
 	//Functions
 	virtual void setPosition(const float& x, const float& y);
 	virtual void move(const float dir_x, const float dir_y, const float& dt);

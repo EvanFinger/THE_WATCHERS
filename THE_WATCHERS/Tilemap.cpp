@@ -3,7 +3,7 @@
 
 Tilemap::Tilemap()
 {
-	this->gridSizeF = 50.f;
+	this->gridSizeF = 300.f;
 	this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
 	this->mapSize.x = 50;
 	this->mapSize.y = 50;

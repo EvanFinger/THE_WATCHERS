@@ -39,6 +39,16 @@ void Entity::createDurabilityComponent(int max_health, int max_shield, int armor
 	this->durabilityComponent = new DurabilityComponent(max_health, max_shield, armor);
 }
 
+const sf::Vector2f& Entity::getEntityPosition() const
+{
+	return this->sprite.getPosition();
+}
+
+const sf::FloatRect& Entity::getEntitySize() const
+{
+	return this->sprite.getGlobalBounds();
+}
+
 
 //Functions
 

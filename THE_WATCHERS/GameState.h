@@ -10,6 +10,10 @@ class GameState :
     public State
 {
 private:
+    sf::View view;
+    sf::RenderTexture renderTexture;
+    sf::Sprite renderSprite;
+
     PauseMenu* pauseMenu;
     sf::Font font;
 
@@ -22,6 +26,8 @@ private:
     bool keyPressed;
 
     //Functions
+    void initRenderTextureSprite();
+    void initView();
     void initFonts();
     void initKeybinds();
     void initTextures();
@@ -35,7 +41,7 @@ public:
     virtual ~GameState();
 
     //Functions
-
+    void updatePlayerView(const float& dt);
     void updateInput(const float& dt);
     void updatePlayerInput(const float& dt);
     void updatePauseButtonInput();

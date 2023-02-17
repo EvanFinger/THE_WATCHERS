@@ -26,7 +26,7 @@ HealthBar::HealthBar(unsigned int max_health, float x, float y, sf::Texture& tex
 	{
 		
 		this->hearts[i] = new heart(this->heartInitializationSpacer, 0, this->heartTextureSheet);
-		this->heartInitializationSpacer += 16;
+		this->heartInitializationSpacer += this->hearts.at(0)->getEntitySize().width;
 	}
 }
 
@@ -45,7 +45,7 @@ void HealthBar::update(const float& dt)
 		for (int i = 0; i < this->maxHealth - this->hearts.size(); i++)
 		{
 			this->hearts[this->hearts.size()] = new heart(this->heartInitializationSpacer, 0, this->heartTextureSheet);
-			this->heartInitializationSpacer = +16;
+			this->heartInitializationSpacer += this->hearts.at(0)->getEntitySize().width;
 		}
 		
 	}
@@ -54,7 +54,7 @@ void HealthBar::update(const float& dt)
 		for (int i = 0; i < this->maxHealth - this->hearts.size(); i++)
 		{
 			this->hearts.erase(this->hearts.size()-1);
-			this->heartInitializationSpacer = -16;
+			this->heartInitializationSpacer -= this->hearts.at(0)->getEntitySize().width;
 		}
 	}
 
