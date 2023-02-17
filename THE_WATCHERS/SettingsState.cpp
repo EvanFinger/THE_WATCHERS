@@ -51,7 +51,7 @@ void SettingsState::initTitle()
 	);
 }
 
-void SettingsState::initGui(unsigned short default_index)
+void SettingsState::initGui(unsigned short default_index, bool fullscreen)
 {
 	float button_width = this->window->getSize().x / 6.4f, button_height = this->window->getSize().y / 12.8f;
 	float button_xPos = this->window->getSize().x / 2.f - button_width / 2.f;
@@ -88,11 +88,21 @@ void SettingsState::initGui(unsigned short default_index)
 		modes_str.push_back(std::to_string(iterator.width) + "x" + std::to_string(iterator.height));
 	}
 	std::string list[]= { "123", "456", "789"};
-	//test
+
 	this->arrowSelectors["RESOLUTION"] = new gui::ArrowSelection(
 		this->stateData->window->getSize().x / 6.4, this->stateData->window->getSize().y / 10.8, 250, 40,
 		this->font, modes_str.data(), modes_str.size(), default_index
 	);
+
+	//FullScreen
+	this->toggleSwitches["FULLSCREEN"] = new gui::ToggleSwitch(
+		this->stateData->window->getSize().x / 4.8f, this->stateData->window->getSize().y / 4.5, 
+		this->stateData->window->getSize().x / 12.8, this->stateData->window->getSize().y / 21.6,
+		sf::Color(20, 30, 60, 200), sf::Color(50, 60, 60, 200), sf::Color(255, 255, 255, 200),
+		fullscreen
+	);
+
+
 	
 }
 
@@ -146,13 +156,19 @@ SettingsState::~SettingsState()
 	{
 		delete iterator3->second;
 	}
+	
+	auto iterator4 = this->toggleSwitches.begin();
+	for (iterator4 = this->toggleSwitches.begin(); iterator4 != this->toggleSwitches.end(); ++iterator4)
+	{
+		delete iterator4->second;
+	}
 }
 
 //Access
 
 //Functions
 
-void SettingsState::refreshState(unsigned short default_index)
+void SettingsState::refreshState(unsigned short default_index, bool fullscreen)
 {
 	auto iterator = this->buttons.begin();
 	for (iterator = this->buttons.begin(); iterator != this->buttons.end(); ++iterator)
@@ -166,7 +182,18 @@ void SettingsState::refreshState(unsigned short default_index)
 		delete iterator2->second;
 	}
 
-	initGui(default_index);
+	auto iterator3 = this->arrowSelectors.begin();
+	for (iterator3 = this->arrowSelectors.begin(); iterator3 != this->arrowSelectors.end(); ++iterator3)
+	{
+		delete iterator3->second;
+	}
+
+	auto iterator4 = this->toggleSwitches.begin();
+	for (iterator4 = this->toggleSwitches.begin(); iterator4 != this->toggleSwitches.end(); ++iterator4)
+	{
+		delete iterator4->second;
+	}
+	initGui(default_index, fullscreen);
 	initTitle();
 	initText();
 }
@@ -195,23 +222,29 @@ void SettingsState::updateGui()
 	if (this->buttons["APPLY"]->isPressed())
 	{
 		this->stateData->gfxSettings->resolution = this->modes[this->arrowSelectors["RESOLUTION"]->getActiveIndex()];
+		this->stateData->gfxSettings->fullscreen = this->toggleSwitches["FULLSCREEN"]->getToggled();
 
-		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
+		if (!this->stateData->gfxSettings->fullscreen)
+			this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
+		else
+			this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Fullscreen);
 
-		this->refreshState(this->arrowSelectors["RESOLUTION"]->getActiveIndex());
+		this->refreshState(this->arrowSelectors["RESOLUTION"]->getActiveIndex(), this->toggleSwitches["FULLSCREEN"]->getToggled());
 	}
 	if (this->buttons["SAVE"]->isPressed())
 	{
 		this->stateData->gfxSettings->resolution = this->modes[this->arrowSelectors["RESOLUTION"]->getActiveIndex()];
 
 		//set active window to new settings
-		this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Default);
-
+		if(!this->stateData->gfxSettings->fullscreen)
+			this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Titlebar | sf::Style::Close);
+		else
+			this->window->create(this->stateData->gfxSettings->resolution, this->stateData->gfxSettings->title, sf::Style::Fullscreen);
 		//Save Changes to .ini
 		this->stateData->gfxSettings->saveToFile("Config/graphics.ini");
 
 		//update gui scale and position
-		this->refreshState(this->arrowSelectors["RESOLUTION"]->getActiveIndex());
+		this->refreshState(this->arrowSelectors["RESOLUTION"]->getActiveIndex(), this->toggleSwitches["FULLSCREEN"]->getToggled());
 	}
 
 	//DROPDOWNS
@@ -223,6 +256,12 @@ void SettingsState::updateGui()
 
 	//ARROW SELECTORS
 	for (auto& iterator : this->arrowSelectors)
+	{
+		iterator.second->update(this->mousePosView);
+	}
+
+	//TOGGLE SWITCHES
+	for (auto& iterator : this->toggleSwitches)
 	{
 		iterator.second->update(this->mousePosView);
 	}
@@ -251,6 +290,11 @@ void SettingsState::renderGui(sf::RenderTarget* target)
 	}
 
 	for (auto& iterator : this->arrowSelectors)
+	{
+		iterator.second->render(*target);
+	}
+
+	for (auto& iterator : this->toggleSwitches)
 	{
 		iterator.second->render(*target);
 	}

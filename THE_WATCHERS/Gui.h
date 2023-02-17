@@ -124,9 +124,37 @@ namespace gui
 	class ToggleSwitch
 	{
 	private:
+		sf::RectangleShape switchOff;
+		sf::RectangleShape switchOn;
+		unsigned short state;
+		bool mouseDown, toggled;
+		
+		sf::Color switchBackground;
+		sf::Color switchActive;
+		sf::Color switchLever;
+
+		sf::Color hoverSwitchBackground;
+		sf::Color hoverSwitchActive;
+		sf::Color hoverSwitchLever;
+
+		sf::Color clickedSwitchBackground;
+		sf::Color clickedSwitchActive;
+		sf::Color clickedSwitchLever;
 
 	public:
+		ToggleSwitch(
+			float x, float y, float width, float height,
+			sf::Color switch_background, sf::Color switch_active, sf::Color switch_lever,
+			bool init_state = 0
+		);
+		~ToggleSwitch();
+		
+		//Access
+		const bool getToggled() const;
 
+		//Functions
+		void update(const sf::Vector2f& mousePos);
+		void render(sf::RenderTarget& target);
 	};
 }
 #endif

@@ -4,11 +4,16 @@
 #include "State.h"
 #include "PauseMenu.h"
 #include "HealthBar.h"
+#include "Tilemap.h"
 
 class GameState :
     public State
 {
 private:
+    sf::View view;
+    sf::RenderTexture renderTexture;
+    sf::Sprite renderSprite;
+
     PauseMenu* pauseMenu;
     sf::Font font;
 
@@ -16,14 +21,19 @@ private:
 
     HealthBar* healthbar;
 
+    Tilemap* tilemap;
+
     bool keyPressed;
 
     //Functions
+    void initRenderTextureSprite();
+    void initView();
     void initFonts();
     void initKeybinds();
     void initTextures();
     void initPauseMenu();
     void initHealthbar();
+    void initTilemap();
     void initPlayer();
 
 public:
@@ -31,7 +41,7 @@ public:
     virtual ~GameState();
 
     //Functions
-
+    void updatePlayerView(const float& dt);
     void updateInput(const float& dt);
     void updatePlayerInput(const float& dt);
     void updatePauseButtonInput();
