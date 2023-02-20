@@ -3,13 +3,13 @@
 
 Tilemap::Tilemap()
 {
-	this->gridSizeF = 300.f;
+	this->gridSizeF =  64.f;
 	this->gridSizeU = static_cast<unsigned>(this->gridSizeF);
 	this->mapSize.x = 50;
 	this->mapSize.y = 50;
 	this->layers = 1;
 
-	if (!this->tileTexture.loadFromFile("Images/tst.png"))
+	if (!this->tileTexture.loadFromFile("Images/TileMap/tileset_tile_1.png"))
 		std::cout << "ERROR LOADING TILE TEXTURE";
 
 	this->map.resize(this->mapSize.x, std::vector< std::vector <Tile*> >());

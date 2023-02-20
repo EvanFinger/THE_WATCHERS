@@ -156,6 +156,7 @@
     <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="heart.cpp" />
+    <ClCompile Include="HitboxComponent.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="MarksmanUpgradeState.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="HealthBar.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="heart.h" />
+    <ClInclude Include="HitboxComponent.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="MarksmanUpgradeState.h" />
     <ClInclude Include="MovementComp.h" />

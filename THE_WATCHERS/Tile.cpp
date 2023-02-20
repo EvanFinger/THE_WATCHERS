@@ -19,7 +19,7 @@ Tile::Tile(float x, float y, float grid_size_f, sf::Texture* texture)
 	this->shape.setPosition(x, y);
 	this->shape.setSize(sf::Vector2f(grid_size_f, grid_size_f));
 	this->shape.setOutlineThickness(1);
-	this->shape.setOutlineColor(sf::Color::Black);
+	this->shape.setOutlineColor(sf::Color::Transparent);
 	this->shape.setTexture(texture);
 }
 

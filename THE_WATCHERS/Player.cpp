@@ -18,10 +18,10 @@ Player::Player(float x, float y, int max_health, sf::Texture& texture_sheet)
 	this->initVariables();
 	this->setPosition(x, y);
 	
-	this->createMovementComponent(250.f, 10.f, 4.f);
+	this->createMovementComponent(500.f, 20.f, 10.f);
 	this->createAnimationComponent(texture_sheet);
 
-	this->animationComponent->addAnimation("IDLE_LEFT", 10.f, 0, 0,7, 0, 16, 16);
+	this->animationComponent->addAnimation("MOVE_RIGHT", 10.f, 0, 0,11, 0, 64, 64);
 
 	this->createDurabilityComponent(max_health, 0, 0);
 
@@ -37,5 +37,5 @@ void Player::update(const float& dt)
 		this->movementComponent->update(dt);
 	Entity::update(dt);
 
-	this->animationComponent->play("IDLE_LEFT", dt);
+	this->animationComponent->play("MOVE_RIGHT", dt);
 }
