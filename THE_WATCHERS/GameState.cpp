@@ -66,7 +66,7 @@ void GameState::initKeybinds()
 
 void GameState::initTextures()
 {
-	if (!this->textures["PLAYER_SHEET"].loadFromFile("Images/Players/blue_ball_idle_0.png"))
+	if (!this->textures["PLAYER_SHEET"].loadFromFile("Images/Players/player_texture_sheet.png"))
 	{
 		throw("ERROR::GAME_STATE FAILED TO LOAD PLAYER TEXTURE");
 	}
